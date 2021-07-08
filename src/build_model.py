@@ -12,7 +12,7 @@ class EncoderRNN(nn.Module):
     """
     A bidirectional RNN. It takes FBANK features and outputs the output state vectors of every time step.
     """
-    def __init__(self, hidden_size, num_layers, drop_p):
+    def __init__(self, input_size=240, hidden_size, num_layers, drop_p):
         """
         Args:
             hidden_size (integer): Size of GRU cells.
