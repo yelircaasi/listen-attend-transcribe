@@ -6,6 +6,7 @@ import torch.nn.functional as F
 import torch.nn.utils.rnn as rnn_utils
 import numpy as np
 
+gpu = torch.cuda.is_available()
 
 class EncoderRNN(nn.Module):
     """
@@ -147,7 +148,10 @@ class DecoderRNN(nn.Module):
 
         if ground_truths is None:
             all_attn_weights = []
-            predictions = [torch.full([batch_size], 3, dtype=torch.int64).cuda()]   # The first predicted word is always <s> (ID=3).
+            if gpu:
+                predictions = [torch.full([batch_size], 3, dtype=torch.int64).cuda()]   # The first predicted word is always <s> (ID=3).
+            else:
+                predictions = [torch.full([batch_size], 3, dtype=torch.int64)]   # The first predicted word is always <s> (ID=3).
             # Unrolling the forward pass
             for time_step in range(100):   # Empirically set max_length=100
                 x = predictions[-1]                           # [batch_size]
@@ -188,7 +192,7 @@ class DecoderRNN(nn.Module):
             loss = nn.CrossEntropyLoss()(outputs[mask], ground_truths[:, 1:][mask])
             return loss
 
-    def apply_attn(self, source_states, source_lengths, target_states):
+    def apply_attn(self, source_states, source_lengths, target_state):
         """
         Apply attention.
         Args:
@@ -201,14 +205,17 @@ class DecoderRNN(nn.Module):
                 The attention result (weighted sum of Encoder output states).
             attn_weights (torch.FloatTensor, [batch_size, padded_length_of_encoder_states]): The attention alignment weights.
         """
-        # A two-layer network used for project every pair of [source_state, target_state].
-        attns = self.attn_W(source_states) + self.attn_U(target_states).unsqueeze(1)   
+        # A two-layer network used to project every pair of [source_state, target_state].
+        attns = self.attn_W(source_states) + self.attn_U(target_state).unsqueeze(1)   
                                   # [batch_size, padded_len_src, hidden_size]
         attns = self.attn_v(F.relu(attns)).squeeze(2)            # [batch_size, padded_len_src]
 
         # Create a mask with shape [batch_size, padded_len_src] to ignore the encoder states with <PAD> tokens.
         mask = torch.arange(attns.shape[1]).unsqueeze(0).repeat([attns.shape[0], 1]).ge(source_lengths.unsqueeze(1))
-        attns = attns.masked_fill_(mask.cuda(), -float('inf'))          # [batch_size, padded_len_src]
+        if gpu:
+            attns = attns.masked_fill_(mask.cuda(), -float('inf'))          # [batch_size, padded_len_src]
+        else:
+            attns = attns.masked_fill_(mask, -float('inf'))          # [batch_size, padded_len_src]
         attns = F.softmax(attns, dim=-1)                                # [batch_size, padded_len_src]
         attn_weights = attns.clone()
         attns = torch.sum(source_states * attns.unsqueeze(-1), dim=1)   # [batch_size, 2 * hidden_size]

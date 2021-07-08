@@ -60,6 +60,9 @@ def main():
     parser.add_argument('--ckpt_freq', default=10, type=int, help="Frequency (number of epochs) to save checkpoints.")
     args = parser.parse_args()
 
+    if not args.cfg.startswith("configs/"):
+        args.cfg = "config/" + args.cfg
+    
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
     assert torch.cuda.is_available()
     import data

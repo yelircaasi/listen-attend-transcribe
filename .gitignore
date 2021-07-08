@@ -1,3 +1,5 @@
-checkpoints/checkpoint*
+checkpoints/default/checkpoint*
+checkpoints/binfeat/checkpoint*
+checkpoints/contfeat/checkpoint*
 __pycache__
 

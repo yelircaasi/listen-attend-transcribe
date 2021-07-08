@@ -1,5 +1,5 @@
 # The location to save checkpoints. If null, it will be the same location and have the same name as this config file.
-logdir: checkpoints
+logdir: checkpoints/default
 
 model:
 # hidden_size: Number of hidden units in GRU cells.

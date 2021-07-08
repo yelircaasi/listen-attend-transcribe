@@ -29,12 +29,15 @@ def main():
     args = parser.parse_args()
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
-    assert torch.cuda.is_available()
+    #assert torch.cuda.is_available()
     import data
     import build_model
 
     # Restore checkpoint
-    info = torch.load(args.ckpt)
+    if torch.cuda.is_available():
+        info = torch.load(args.ckpt)
+    else:
+        info = torch.load(args.ckpt, map_location=torch.device("cpu"))
     print ("Dev. error rate of checkpoint: %.4f @epoch: %d" % (info['dev_error'], info['epoch']))
 
     cfg = info['cfg']
@@ -50,12 +53,13 @@ def main():
                                 decoder_layers=cfg['model']['decoder_layers'])
     model.load_state_dict(info['weights'])
     model.eval()
-    model = model.cuda()
+    #model = model.cuda()
 
     # Inference
     with torch.no_grad():
         for (x, xlens, y) in loader:
-            predictions, attentions = model(x.cuda(), xlens)
+            #predictions, attentions = model(x.cuda(), xlens)
+            predictions, attentions = model(x, xlens)
             predictions, attentions = predictions[0], attentions[0]
             predictions = tokenizer.decode(predictions)
             attentions = attentions[:len(predictions.split())].cpu().numpy()   # (target_length, source_length)
