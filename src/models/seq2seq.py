@@ -3,7 +3,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.nn.utils.rnn as rnn_utils
+import torch.nn.utils.rnn as g
 import numpy as np
 
 gpu = torch.cuda.is_available()

@@ -57,19 +57,19 @@ def process_dataset(root, split):
     print ("%s is created." % fname)
 
 
-#def create_tokenizer():
-#    """
-#    Create and save Pytorch-NLP tokenizer.
-#    Args:
-#        root (string): Directory of TIMIT.
-#    """
-#    transcripts = pd.read_csv('TRAIN.csv')['transcript']
-#    tokenizer = StaticTokenizerEncoder(transcripts,
-#                                       append_sos=True,
-#                                       append_eos=True,
-#                                       tokenize=data_utils.encode_fn,
-#                                       detokenize=data_utils.decode_fn)
-#    torch.save(tokenizer, 'tokenizer.pth')
+def create_tokenizer():
+    """
+    Create and save Pytorch-NLP tokenizer.
+    Args:
+        root (string): Directory of TIMIT.
+    """
+    transcripts = pd.read_csv('TRAIN.csv')['transcript']
+    tokenizer = StaticTokenizerEncoder(transcripts,
+                                       append_sos=True,
+                                       append_eos=True,
+                                       tokenize=data_utils.encode_fn,
+                                       detokenize=data_utils.decode_fn)
+    torch.save(tokenizer, 'tokenizer.pth')
 
 
 

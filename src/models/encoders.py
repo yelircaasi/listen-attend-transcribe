@@ -12,7 +12,7 @@ class EncoderRNN(nn.Module):
     A bidirectional RNN. It takes FBANK features and outputs the output state vectors of every time step.
     """
 
-    def __init__(self, input_size=240, hidden_size, num_layers, drop_p):
+    def __init__(self, input_size, hidden_size, num_layers, drop_p):
         """
         Args:
             hidden_size (integer): Size of GRU cells.
@@ -20,8 +20,7 @@ class EncoderRNN(nn.Module):
             drop_p (float): Probability to drop elements at Dropout layers.
         """
         super(EncoderRNN, self).__init__()
-        # 240 is the dimension of acoustic features.
-        self.embed = nn.Linear(240, hidden_size)
+        self.embed = nn.Linear(input_size, hidden_size)
         self.rnn = nn.GRU(hidden_size,
                           hidden_size,
                           batch_first=True,

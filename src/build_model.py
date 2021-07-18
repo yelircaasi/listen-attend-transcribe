@@ -156,7 +156,7 @@ class DecoderRNN(nn.Module):
             for time_step in range(100):   # Empirically set max_length=100
                 x = predictions[-1]                           # [batch_size]
                 x = self.embed(x)                             # [batch_size, hidden_size]
-                h = self. cell(torch.cat([y, x], dim=-1), h)   # [num_layers, batch_size, hidden_size]
+                h = self.cell(torch.cat([y, x], dim=-1), h)   # [num_layers, batch_size, hidden_size]
                 attns, attn_weights = self.apply_attn(
                     states, states_lengths, h[-1])            # [batch_size, 2 * hidden_size], [batch_size, length_of_encoder_states]
                 y = torch.cat([attns, h[-1]], dim=-1)         # [batch_size, 3 * hidden_size]

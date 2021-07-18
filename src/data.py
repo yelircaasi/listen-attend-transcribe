@@ -13,8 +13,8 @@ class ASR(Dataset):
     """
     Stores a Pandas DataFrame in __init__, and reads and preprocesses examples in __getitem__.
     """
-    def __init__(self, split, dataset_name="timit", output_type="default"):
-        self.df = pd.read_csv('%s.csv' % split.upper())
+    def __init__(self, split, dataset_name="timit", output_type="phones"):
+        self.df = pd.read_csv('../resources/%s.csv' % split.upper())
         self.dataset_name = dataset_name 
         self.output_type = output_type
         self.tokenizer = torch.load(f"../resources/tokenizer_{dataset_name}_{output_type}.pth")
