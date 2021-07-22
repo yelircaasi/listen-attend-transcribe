@@ -62,14 +62,6 @@ def get_feats(filepath, continuous=False, as_dict=True):
     return featdf
 
 
-encoders = {
-    "": None #TODO
-}
-
-decoders = {
-    "": None #TODO
-}
-
 
 class FeaturizerCont(StaticTokenizerEncoder):
     """Override 'encode' method to allow for dense continuous feature representations.

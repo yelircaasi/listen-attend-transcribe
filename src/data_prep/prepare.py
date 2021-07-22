@@ -72,8 +72,9 @@ def main():
         data_dir = os.path.join(args.root, dataset_dirnames[dataset])
         process_dataset(data_dir)
 
-            # create_tokenizer()
-#            build_featurizer(dataset, feat_type)
+        for feat_type in args.features.split(","):
+            build_featurizer(dataset, feat_type)
+    
     print("Data preparation is complete !")
 
 

@@ -13,11 +13,13 @@ class ASR(Dataset):
     """
     Stores a Pandas DataFrame in __init__, and reads and preprocesses examples in __getitem__.
     """
-    def __init__(self, split, dataset_name="timit", output_type="phones"):
-        self.df = pd.read_csv('../resources/%s.csv' % split.upper())
-        self.dataset_name = dataset_name 
+    def __init__(self, split, dataset_name="timit", output_type="phones", stack_frames=3):
+        split = split.upper()
+        self.df = pd.read_csv('resources/datalists/{dataset_name}_{split}.csv')
+        self.dataset_name = dataset_name
         self.output_type = output_type
-        self.tokenizer = torch.load(f"../resources/tokenizer_{dataset_name}_{output_type}.pth")
+        self.tokenizer = torch.load(f"resources/tokenizer_{dataset_name}_{output_type}.pth")
+        self.stack_frames = stack_frames
         
     def __len__(self):
         return len(self.df)
@@ -33,7 +35,8 @@ class ASR(Dataset):
         # Compute filter bank features
         x = torchaudio.compliance.kaldi.fbank(x, num_mel_bins=80)   # [n_windows, 80]
         # Stack every 3 frames and down-sample frame rate by 3, following https://arxiv.org/pdf/1712.01769.pdf.
-        x = x[:(x.shape[0]//3)*3].view(-1,3*80)   # [n_windows, 80] --> [n_windows//3, 240]
+        n = self.stack_frames
+        x = x[:(x.shape[0]//n)*n].view(-1,n*80)   # [n_windows, 80] --> [n_windows//3, 240]
         # Tokenization
         y = self.tokenizer.encode(y)
         return x, y
@@ -64,10 +67,12 @@ def load(split, batch_size, workers=0):
     Returns:
         loader (DataLoader): A DataLoader can generate batches of (FBANK features, FBANK lengths, label sequence).
     """
-    assert split in ['train', 'dev', 'test']
+    split = split.upper()
+    assert split in ['TRAIN', 'DEV', 'TEST']
+    n = len(dataset)
 
     dataset = ASR(split)
-    print ("%s set size:"%split.upper(), len(dataset))
+    print ("{split} set size: {n}")
     loader = DataLoader(dataset,
                         batch_size=batch_size,
                         collate_fn=dataset.generateBatch,
