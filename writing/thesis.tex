@@ -1,0 +1,219 @@
+\documentclass[12pt,leqno,a4paper]{article}
+% Minimalbeispiel für Diplom- oder Studienarbeit in Latex
+% OHNE GEWAEHR
+% Antje Schweitzer, Juli 2011 & Juli 2014 
+% folgende Dateien gehoeren zu diesem Beispiel:
+% - thesis.tex (der eigentliche Text)
+% - references.bib (die "Datenbank" mit den Literaturverweisen im Bibtex-Format)
+% - example.pdf (eine Beispielgrafik)
+% damit kann man dann nach der Anleitung unten folgendes Dokument erzeugen:
+% - thesis.pdf 
+
+% Minimal example for student papers in LaTeX, can be used as a template
+% without warranty
+% (English "translation" by Nils Reiter, July 2014)
+% You need multiple files for this example to work:
+% - thesis.tex (this file)
+% - references.bib (a BibTeX file containing the bibliographic entries)
+% - example.pdf (an example figure)
+
+% ANLEITUNG -- INSTRUCTIONS
+% To create a PDF, please run the following steps:
+% - pdflatex thesis.tex
+% - bibtex thesis
+% - pdflatex thesis.tex
+% - pdflatex thesis.tex
+% (yes, some steps need to be run multiple times, for reasons)
+
+% Antje Schweitzer, Oct. 2016 - updated statement of authorship
+% 
+% Antje Schweitzer, Dec 2020 
+% - updated translation of statement of authorship ;)
+% - made title fit into the window prescribed for Computer Science theses
+% please note that for the Computer Science students, the statements
+% have slightly different wordings and need to be on the last page
+% please check requirements by C.S. department in that case
+% (also no guarantee that the window is correct -
+% the version I compiled and printed does fit)
+% - changed to UTF-8 encoded .tex file, included inputenc utf8, 
+% so Umlauts can be typed as usual
+
+\usepackage{natbib}
+\usepackage{epsfig}
+\usepackage{booktabs}
+\usepackage[paper=a4paper,left=3cm,right=3cm]{geometry}% http://ctan.org/pkg/geometry
+\usepackage[utf8]{inputenc} 
+\usepackage[english,german]{babel}
+
+\renewcommand{\baselinestretch}{1.3}
+\parskip = \medskipamount
+\frenchspacing
+\bibpunct[; ]{(}{)}{;}{a}{,}{;}
+
+
+\newcommand{\Titel}{Template for IMS Theses\\ and Student Papers}
+
+
+\begin{document}
+
+% larger left margin for title page to get it centered into C.S. template
+
+\begin{titlepage}
+  % different margin so titlepage fits into template
+  \newgeometry{left=3.5cm,right=2cm}
+  \large
+   \begin{center}
+    Institut für Maschinelle Sprachverarbeitung\\
+    Universität Stuttgart\\
+    Pfaffenwaldring 5B\\
+    D-70569 Stuttgart\\    
+    
+    \vspace{2.5cm}
+    Term paper / Master thesis / Bachelor thesis \\
+   % \vfill
+    {\LARGE \bf \Titel} \\
+    \vspace{2cm}
+    Marlene Mustermann\\
+       \vfill
+    \begin{tabular}[t]{lr}
+    Studiengang: & M.Sc. Computational Linguistics \\ % oder: B.Sc. Maschinelle Sprachverarbeitung, M.Sc. Informatik, ...\\
+    \\
+    \\
+    {Prüfer*innen:} & Prof. Dr. Frida Maier\\
+     & Prof. Dr. Max Müller\\
+    {Betreuer:} & Dr. Harald Schmidt\\ 
+    \\
+    \\
+    {Beginn der Arbeit:} & 01.03.2010\\
+    {Ende der Arbeit:} & 31.08.2010\\
+    \end{tabular}
+  \end{center}
+\setlength{\hoffset}{0cm}
+
+  \normalsize
+\end{titlepage}
+
+% back to original geometry
+\newgeometry{left=3cm,right=3cm}
+
+\newpage
+\thispagestyle{empty}
+
+
+% note that for Computer Science theses (not Maschinelle Sprachverarbeitung or Computational Linguistics)
+% this statement has a different wording and needs to be on the last rather than the first page. 
+% Please adapt accordingly. 
+\begin{otherlanguage}
+{german}
+\noindent\textbf{Erklärung (Statement of Authorship)}\\
+
+
+\noindent Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst habe und dabei keine andere als die angegebene Literatur verwendet habe. Alle Zitate und sinngemäßen Entlehnungen sind als solche unter genauer Angabe der Quelle gekennzeichnet. Die eingereichte Arbeit ist weder vollständig noch in wesentlichen Teilen Gegenstand eines anderen Prüfungsverfahrens gewesen. Sie ist weder vollständig noch in Teilen bereits veröffentlicht. Die beigefügte elektronische Version stimmt mit dem Druckexemplar überein.%% delete the following for theses in German; 
+%% delete or keep for English theses. 
+%% The German version above must be retained 
+%% and signed even if the thesis is written
+%% in another language than German.
+\end{otherlanguage}
+\footnote{Non-binding translation for convenience: This thesis is the result of my own independent work, and any material from work of others which is used either verbatim or indirectly in the text is credited to the author including details about the exact source in the text. This work has not been part of any other previous examination, neither completely nor in parts. It has neither completely nor partially been published before. The submitted electronic version is identical to this print version.}\\[2cm]
+
+
+\noindent (Marlene Mustermann)
+
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This document serves as an example and template for formatting student papers written at the IMS. The text is written in \LaTeX and therefore looks very nice and serious. Furthermore, \LaTeX automatically enumerates figures, tables and sections and provides a system to reference figures, tables and sections by their (correct) numbers. 
+
+Table of content as well as lists of figures and tables can be produced automatically, similarly to the bibliography. There are tons of tutorials, handbooks and references for \LaTeX in the Internet. 
+
+
+\section{Formatting Examples}
+
+\subsection{Lists}\label{listen}
+
+Lists look like this:
+
+\begin{itemize}
+\item This 
+\item is 
+\item  a 
+\item list 
+\end{itemize}
+
+
+\subsection{Enumerations}
+
+Lists with numbers are called enumerations:
+
+\begin{enumerate}
+\item One
+\item Two
+\item Three 
+\item Many
+\end{enumerate}
+
+In contrast to the list in Section \ref{listen}, the enumeration has numbers.
+
+
+\section{Figures, Tables etc.}
+
+\subsection{Tables}
+
+Tables can be put in the running text, as shown below.
+
+\begin{tabular}{clr}
+\toprule
+Column 1 & Column 2 & Column 3\\
+\midrule
+Column 1 & Column 2 & Column 3 \\
+centered & aligned left &  aligned right \\
+\bottomrule
+\end{tabular}
+
+But tables should be placed as float objects, which gives them an automatic number and caption and places them at reasonable places (see Table \ref{tabelle}).
+
+\begin{table}
+\begin{center}
+\begin{tabular}{clr}
+\toprule
+Yet & Another & Table \\
+\midrule
+Column 1 & Column 2 & Column 3 \\
+centered & aligned left &  aligned right \\
+\bottomrule
+\end{tabular}
+\caption{Isn't this a nice table?}\label{tabelle}
+\end{center}
+\end{table}
+
+\subsection{Figures}
+
+Pictures can be included using the package \texttt{epsfig}, as can be seen in Figure \ref{bild}. Similar to tables used in the \texttt{table}-environment, figures are placed automatically.
+
+%\begin{figure}
+%\begin{center}
+%\epsfig{file=example.pdf,width=0.5\textwidth}
+%\caption{This figure is red} \label{bild}
+%\end{center}
+%\end{figure}
+
+
+\section{Related Work}
+Illustrating citation variants: As \cite{Doe:2014aa} has written, five is greater than two. This is quite surprising, because five is also smaller than seven \citep{Done:2014aa}. There is, however, some agreement that one is greater than zero \citep{Doe:2014aa,Done:2014aa}. 
+
+\cite{Done:2015aa} have shown that there are numbers and finally, \cite{Smith:2016aa} have shown that there are many numbers.
+
+
+%%%%%%%%%%%%%
+% Bibliographie
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+
+
+\end{document}
+ 

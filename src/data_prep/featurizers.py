@@ -1,11 +1,16 @@
 """ Define useful functions for data I/O.
 """
 import os
+import sys
+from pathlib import Path
 import numpy as np
 import pandas as pd
 
 #from pandas.io.parsers import ParserBase
 from torchnlp.encoders.text import StaticTokenizerEncoder
+
+sys.path.append(os.path.join(Path(__file__).parent.parent.parent, "resources"))
+import ipa
 
 
 def encode_fn(s_in):
@@ -58,34 +63,42 @@ def get_feats(filepath, continuous=False, as_dict=True):
 
 
 encoders = {
-    "": #TODO
+    "": None #TODO
 }
 
 decoders = {
-    "": #TODO
+    "": None #TODO
 }
 
 
 class FeaturizerCont(StaticTokenizerEncoder):
     """Override 'encode' method to allow for dense continuous feature representations.
             """
-    def encode(self, sequence):
+    def encode(self, ipa_sequence):
         """Encodes a sequence.
                 Args:
                     sequence (string): String sequence to encode.
                 Returns:
                     torch.Tensor: Encoding of the sequence.
                 """
-        #TODO
-        return torch.tensor
+        orig_seq = ipa_sequence.split()
+        n = len(orig_seq)
+        matrix = np.zeros((n, 33))
+        for i, seg in enumerate(orig_seq):
+            matrix[i] = ipa.contfeat[seg]
+        return torch.tensor(matrix)
 
 
 class FeaturizerBin(StaticTokenizerEncoder):
     """Override 'encode' method to allow for dense binary feature representations.
     """
-    
-
-
+    def encode(self, sequence):
+        orig_seq = ipa_sequence.split()
+        n = len(orig_seq)
+        matrix = np.zeros((n, 43))
+        for i, seg in enumerate(orig_seq):
+            matrix[i] = ipa.binfeat[seg]
+        return torch.tensor(matrix)
 
 
 
@@ -123,19 +136,3 @@ def build_featurizer(dataset, feature_type):
     save_path = f"resources/featurizer_{dataset}_{feature_type}.pth"
     torch.save(featurizer, save_path)
     print(f"{save_path} saved.")
-
-
-
-#def create_tokenizer():
-#    """
-#    Create and save Pytorch-NLP tokenizer.
-#    Args:
-#        root (string): Directory of TIMIT.
-#    """
-#    transcripts = pd.read_csv('TRAIN.csv')['transcript']
-#    tokenizer = StaticTokenizerEncoder(transcripts,
-#                                       append_sos=True,
-#                                       append_eos=True,
-#                                       tokenize=data_utils.encode_fn,
-#                                       detokenize=data_utils.decode_fn)
-#    torch.save(tokenizer, 'tokenizer.pth')

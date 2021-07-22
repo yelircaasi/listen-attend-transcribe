@@ -1,0 +1,11 @@
+\babel@toc {english}{}
+\babel@toc {german}{}
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Introduction}{3}%
+\contentsline {section}{\numberline {2}Formatting Examples}{3}%
+\contentsline {subsection}{\numberline {2.1}Lists}{3}%
+\contentsline {subsection}{\numberline {2.2}Enumerations}{3}%
+\contentsline {section}{\numberline {3}Figures, Tables etc.}{4}%
+\contentsline {subsection}{\numberline {3.1}Tables}{4}%
+\contentsline {subsection}{\numberline {3.2}Figures}{4}%
+\contentsline {section}{\numberline {4}Related Work}{5}%

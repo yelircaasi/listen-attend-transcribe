@@ -25,7 +25,7 @@ from featurizers import build_featurizer
 #                                       detokenize=data_utils.decode_fn)
 #    torch.save(tokenizer, 'tokenizer.pth')
 
-dataset_dirs = {
+dataset_dirnames = {
     "timit": "timit",
     "arcticl2": "arctic_l2",
     "arabicsc": "arabic_speech_corpus",
@@ -50,6 +50,7 @@ def main():
     #process_dataset(args.root, 'train')
     #process_dataset(args.root, 'dev')
     #process_dataset(args.root, 'test')
+
     for dataset in args.datasets.split(","):
         if dataset == "timit":
             from timit import process_dataset
@@ -68,12 +69,11 @@ def main():
                 "Dataset {args.dataset} not available. Check spelling and try again.")
             continue
 
-        data_dir = os.path.join(args.root, dataset_dirs[dataset])
-        for feat_type in args.features.split(","):
-            process_dataset(data_dir)
+        data_dir = os.path.join(args.root, dataset_dirnames[dataset])
+        process_dataset(data_dir)
 
             # create_tokenizer()
-            build_featurizer(dataset, feat_type)
+#            build_featurizer(dataset, feat_type)
     print("Data preparation is complete !")
 
 
