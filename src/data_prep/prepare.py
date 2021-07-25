@@ -6,24 +6,7 @@ import os
 import glob
 import argparse
 import pandas as pd
-#import data_utils
-
 from featurizers import build_featurizer
-
-
-# def create_tokenizer():
-#    """
-#    Create and save Pytorch-NLP tokenizer.
-#    Args:
-#        root (string): Directory of TIMIT.
-#    """
-#    transcripts = pd.read_csv('TRAIN.csv')['transcript']
-#    tokenizer = StaticTokenizerEncoder(transcripts,
-#                                       append_sos=True,
-#                                       append_eos=True,
-#                                       tokenize=data_utils.encode_fn,
-#                                       detokenize=data_utils.decode_fn)
-#    torch.save(tokenizer, 'tokenizer.pth')
 
 dataset_dirnames = {
     "timit": "timit",
@@ -46,11 +29,7 @@ def main():
 
     print(args.root)
     assert os.path.exists(args.root)
-    # TODO: fix this section here
-    #process_dataset(args.root, 'train')
-    #process_dataset(args.root, 'dev')
-    #process_dataset(args.root, 'test')
-
+    
     for dataset in args.datasets.split(","):
         if dataset == "timit":
             from timit import process_dataset
@@ -71,6 +50,9 @@ def main():
 
         data_dir = os.path.join(args.root, dataset_dirnames[dataset])
         process_dataset(data_dir)
+
+        if dataset == "arcticl2":
+            dataset = "arcticl2_all"
 
         for feat_type in args.features.split(","):
             build_featurizer(dataset, feat_type)

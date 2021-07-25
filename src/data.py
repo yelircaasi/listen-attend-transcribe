@@ -1,13 +1,15 @@
 """ Load and preprocess data.
 """
+import sys
 import torch
 import torchaudio
 import os
+import argparse
 import pandas as pd
 import numpy as np
 import torch.nn.utils.rnn as rnn_utils
 from torch.utils.data import Dataset, DataLoader
-
+sys.path.append("resources")
 
 class ASR(Dataset):
     """
@@ -58,7 +60,7 @@ class ASR(Dataset):
         return xs, xlens, ys
 
 
-def load(split, batch_size, workers=0):
+def load(split, batch_size, dataset, output, nstack, workers=0):
     """
     Args:
         split (string): Which of the subset of data to take. One of 'train', 'dev' or 'test'.
@@ -71,7 +73,7 @@ def load(split, batch_size, workers=0):
     assert split in ['TRAIN', 'DEV', 'TEST']
     n = len(dataset)
 
-    dataset = ASR(split)
+    dataset = ASR(split, dataset_name=dataset, output_type=output, stack_frames=nstack)
     print ("{split} set size: {n}")
     loader = DataLoader(dataset,
                         batch_size=batch_size,
@@ -88,17 +90,25 @@ def inspect_data():
     """
     import matplotlib.pyplot as plt
 
-    BATCH_SIZE = 64
-    SPLIT = 'dev'
+    parser = argparse.ArgumentParser(description="Inspect data.")
+    parser.add_argument('--dataset', type=str, help="Which data to inspect.")
+    parser.add_argument('--split', default='dev', type=str,
+                        help="Specify which split of data to evaluate (train / test / dev).")
+    parser.add_argument("--batch_size", default=8, type=int)
+    parser.add_argument('--output', default="phones", type=str,
+                        help="Output type: phones / bin feats / cont feats.")
+    parser.add_argument("--nstack", default=3, default=3, type=int, 
+                        help="number of frames to stack")
+    args = parser.parse_args()
 
-    loader = load(SPLIT, BATCH_SIZE)
+    loader = load(args.split, args.batch_size, args.dataset, args.output, args.nstack)
     tokenizer = torch.load('tokenizer.pth')
     print ("Vocabulary size:", len(tokenizer.vocab))
     print (tokenizer.vocab)
 
     xs, xlens, ys = next(iter(loader))
     print (xs.shape, ys.shape)
-    for i in range(BATCH_SIZE):
+    for i in range(args.batch_size):
         print (ys[i])
         print (tokenizer.decode(ys[i]))
         plt.figure()
@@ -107,4 +117,5 @@ def inspect_data():
 
 
 if __name__ == '__main__':
+
     inspect_data()

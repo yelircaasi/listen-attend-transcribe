@@ -61,12 +61,12 @@ def main():
     args = parser.parse_args()
 
     if not args.cfg.startswith("configs/"):
-        args.cfg = "config/" + args.cfg
+        args.cfg = "configs/" + args.cfg
     
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
     assert torch.cuda.is_available()
     import data
-    import build_model
+    from models import seq2seq
 
     with open(args.cfg) as f:
         cfg = yaml.load(f, Loader=yaml.FullLoader)
@@ -83,7 +83,7 @@ def main():
 
     # Build model
     tokenizer = torch.load('tokenizer.pth')
-    model = build_model.Seq2Seq(len(tokenizer.vocab),
+    model = seq2seq.Seq2Seq(len(tokenizer.vocab),
                                 hidden_size=cfg['model']['hidden_size'],
                                 encoder_layers=cfg['model']['encoder_layers'],
                                 decoder_layers=cfg['model']['decoder_layers'],

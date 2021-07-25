@@ -62,12 +62,12 @@ def process_dataset(root):
         # Remove all 'SA' records.
         audio_files = [p for p in audio_files if 'SA' not in os.path.basename(p)]
         transcripts = [read_phonemes(p) for p in audio_files]
-        print(audio_files[:10])
-        print(transcripts[:10])
+        #print(audio_files[:10])
+        #print(transcripts[:10])
 
         fname = f"resources/datalists/timit_{split.upper()}.csv"
         with open(fname, 'w') as f:
-            f.write(f"audio,transcript\n")
+            f.write(f"audio,phonemes,ipa\n")
             for (x, (y, z)) in zip(audio_files, transcripts):
                 f.write(f"{x},{y},{z}\n")
-        print("%s is created." % fname)
+        print(f"{fname} is created.")

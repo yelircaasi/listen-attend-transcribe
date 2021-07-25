@@ -628,12 +628,12 @@ arpadict = {
 "UW0": "u",
 "UW1": "u",
 "UW2": "u",
-# Buckeye <v
+# Buckeye
 "{B_TRANS}": "",
 "{E_TRANS}": "",
 "<EXCLUDE-NAME>": "?",
 "<EXCLUDE>": "?",
-"A": "",
+"A": "a",
 "AA+1": "ɑ",
 "AAN": "ɑ̃",
 "AE+1": "æ",

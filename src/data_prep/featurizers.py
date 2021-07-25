@@ -2,6 +2,7 @@
 """
 import os
 import sys
+import torch
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -13,7 +14,7 @@ sys.path.append(os.path.join(Path(__file__).parent.parent.parent, "resources"))
 import ipa
 
 
-def encode_fn(s_in):
+def tokenize_fn(s_in):
     """
     A function for Pytorch-NLP tokenizer to encode sequences.
     Args:
@@ -25,7 +26,7 @@ def encode_fn(s_in):
     return s_out
 
 
-def decode_fn(s_in):
+def detokenize_fn(s_in):
     """
     A function for the Pytorch-NLP tokenizer to decode sequences.
     Args:
@@ -62,7 +63,6 @@ def get_feats(filepath, continuous=False, as_dict=True):
     return featdf
 
 
-
 class FeaturizerCont(StaticTokenizerEncoder):
     """Override 'encode' method to allow for dense continuous feature representations.
             """
@@ -84,7 +84,7 @@ class FeaturizerCont(StaticTokenizerEncoder):
 class FeaturizerBin(StaticTokenizerEncoder):
     """Override 'encode' method to allow for dense binary feature representations.
     """
-    def encode(self, sequence):
+    def encode(self, ipa_sequence):
         orig_seq = ipa_sequence.split()
         n = len(orig_seq)
         matrix = np.zeros((n, 43))
@@ -98,33 +98,34 @@ def build_featurizer(dataset, feature_type):
     """
     Builds a featurizer class for a specified dataset and feature type.
     Args:
-        dataset (string): One of ["timit", "arcticl2", "arabic_speech_corpus", "buckeye"]
+        dataset (string): One of ["timit", "arcticl2_all", "arabicsc", "buckeye"]
         feature_type (string): One of ["phones", "cont", "bin"]
     Returns:
         Instance of class 'torchnlp.encoders.text.static_tokenizer_encoder'
     """
+    transcripts = pd.read_csv(f"resources/datalists/{dataset}_TRAIN.csv").append(
+                  pd.read_csv(f"resources/datalists/{dataset}_TEST.csv")).append(
+                  pd.read_csv(f"resources/datalists/{dataset}_DEV.csv"))["ipa"]
     if feature_type == "phones":
         featurizer = StaticTokenizerEncoder(transcripts,
                                             append_sos=True,
                                             append_eos=True,
-                                            tokenize=encoders[dataset][feature_type],
-                                            detokenize=decoders[dataset][feature_type])
-    
+                                            tokenize=tokenize_fn,
+                                            detokenize=detokenize_fn)
     elif feature_type == "cont":
         featurizer = FeaturizerCont(transcripts,
                                     append_sos=True,
                                     append_eos=True,
-                                    tokenize=encoders[dataset][feature_type],
-                                    detokenize=decoders[dataset][feature_type])
-
+                                    tokenize=tokenize_fn,
+                                    detokenize=detokenize_fn)
     elif feature_type == "bin":
         featurizer = FeaturizerBin(transcripts,
-                                    append_sos=True,
-                                    append_eos=True,
-                                    tokenize=encoders[dataset][feature_type],
-                                    detokenize=decoders[dataset][feature_type])
-
-            
+                                   append_sos=True,
+                                   append_eos=True,
+                                   tokenize=tokenize_fn,
+                                   detokenize=detokenize_fn)
+    
+    dataset = dataset.split("_")[0]
     save_path = f"resources/featurizer_{dataset}_{feature_type}.pth"
     torch.save(featurizer, save_path)
     print(f"{save_path} saved.")

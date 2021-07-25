@@ -1,4 +1,4 @@
-audio,transcript
+audio,phonemes,ipa
 /home/isaac/Projects/Thesis/data/timit/data/TEST/DR8/MPAM0/SX199.WAV,h# y ah ng tcl ch ih l dcl er n sh uh dx ax v oy dcl d ix kcl k s pcl p ow zh er tcl t ax-h kcl k ix n tcl t ey dcl jh ax-h s dcl d ix z iy z ix z h#, j ʌ ŋ t̚ tʃ ɪ l d̚ ɝ n ʃ ʊ ɾ ə v ɔɪ d̚ d ɨ k̚ k s p̚ p oʊ ʒ ɝ t̚ t ə̥ k̚ k ɨ n t̚ t eɪ d̚ dʒ ə̥ s d̚ d ɨ z i z ɨ z 
 /home/isaac/Projects/Thesis/data/timit/data/TEST/DR8/MPAM0/SX109.WAV,h# sh iy s l ih pcl t en s pcl p r ey n d er ae ng kcl k el ao n ax s tcl t iy pcl s l ow pcl p h#, ʃ i s l ɪ p̚ t n̩ s p̚ p ɹ eɪ n d ɝ æ ŋ k̚ k l̩ ɔ n ə s t̚ t i p̚ s l oʊ p̚ p 
 /home/isaac/Projects/Thesis/data/timit/data/TEST/DR8/MPAM0/SI1819.WAV,h# hh iy r ah bcl d ih z ay s l iy pcl p el iy w ix th w ah n hh y ux dcl jh pcl p ao h#, h i ɹ ʌ b̚ d ɪ z aɪ s l i p̚ p l̩ i w ɨ θ w ʌ n h j ʉ d̚ dʒ p̚ p ɔ 

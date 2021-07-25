@@ -31,7 +31,7 @@ def main():
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
     #assert torch.cuda.is_available()
     import data
-    import build_model
+    from models import seq2seq 
 
     # Restore checkpoint
     if torch.cuda.is_available():
@@ -47,7 +47,7 @@ def main():
 
     # Build model
     tokenizer = torch.load('tokenizer.pth')
-    model = build_model.Seq2Seq(len(tokenizer.vocab),
+    model = seq2seq.Seq2Seq(len(tokenizer.vocab),
                                 hidden_size=cfg['model']['hidden_size'],
                                 encoder_layers=cfg['model']['encoder_layers'],
                                 decoder_layers=cfg['model']['decoder_layers'])
@@ -74,5 +74,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
