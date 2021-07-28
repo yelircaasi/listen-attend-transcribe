@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  22 JUL 2021 10:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.7.27)  28 JUL 2021 15:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -109,52 +109,38 @@ File: babel.def 2020/02/14 3.40 Babel common definitions
 \bbl@readstream=\read2
 \bbl@dirlevel=\count184
 )
-Package babel Info: \l@british = using hyphenrules for english
-(babel)             (\language0) on input line 82.
-Package babel Info: \l@UKenglish = using hyphenrules for english
-(babel)             (\language0) on input line 83.
 Package babel Info: \l@canadian = using hyphenrules for english
 (babel)             (\language0) on input line 102.
-Package babel Info: \l@australian = using hyphenrules for english
-(babel)             (\language0) on input line 105.
-Package babel Info: \l@newzealand = using hyphenrules for english
-(babel)             (\language0) on input line 108.
-)
-
-/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty:542: Package babel Error: Unknown option `german'. Either you misspelled it
-(babel)                or the language definition file german.ldf was not found.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.542 \ProcessOptions*
-                      
-Valid options are: shorthands=, KeepShorthandsActive,
-activeacute, activegrave, noconfigs, safe=, main=, math=
-headfoot=, strings=, config=, hyphenmap=, or a language name.
-
-) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+Package babel Info: \l@australian = using hyphenrules for ukenglish
+(babel)             (\language46) on input line 105.
+Package babel Info: \l@newzealand = using hyphenrules for ukenglish
+(babel)             (\language46) on input line 108.
+) (/usr/share/texlive/texmf-dist/tex/generic/babel-german/german.ldf
+Language: german 2018/12/08 v2.11 German support for babel (pre-1996 orthography)
+ (/usr/share/texlive/texmf-dist/tex/generic/babel-german/germanb.ldf
+Language: germanb 2018/12/08 v2.11 German support for babel (pre-1996 orthography)
+Package babel Info: Making " an active character on input line 135.
+))) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count185
 \l__pdf_internal_box=\box45
 ) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.aux)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count186
@@ -262,9 +248,9 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 78.
+(Font)              <14.4> on input line 79.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 78.
+(Font)              <7> on input line 79.
 [1
 
 
@@ -301,90 +287,43 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package babel Info: \l@german = using hyphenrules for english
-(babel)             (\language0) on input line 107.
- (/usr/share/texlive/texmf-dist/tex/generic/babel/locale/de/babel-german.tex
-Package babel Info: Importing basic data for german
-(babel)             from babel-de.ini. Reported on input line 11.
-)
-Underfull \hbox (badness 10000) in paragraph at lines 108--109
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 117.
+(Font)              <12> on input line 118.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 117.
+(Font)              <8> on input line 118.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 117.
+(Font)              <6> on input line 118.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 117.
-
-Underfull \hbox (badness 10000) in paragraph at lines 111--118
-
- []
-
+(Font)              <5> on input line 118.
 [1
 
-]
-No file thesis.toc.
+] [2] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.toc)
 \tf@toc=\write3
 \openout3 = `thesis.toc'.
 
-[2] [3]
+ [3] [4] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/phonetic_model_architecture.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/gan_model_architecture.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/vocoder_model_architecture.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.bbl
 
-LaTeX Warning: Reference `listen' on page 4 undefined on input line 159.
+Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-
-LaTeX Warning: Reference `tabelle' on page 4 undefined on input line 177.
-
-
-LaTeX Warning: Reference `bild' on page 4 undefined on input line 195.
-
-
-Package natbib Warning: Citation `Doe:2014aa' on page 4 undefined on input line 206.
-
-
-Package natbib Warning: Citation `Done:2014aa' on page 4 undefined on input line 206.
-
-
-Package natbib Warning: Citation `Doe:2014aa' on page 4 undefined on input line 206.
-
-
-Package natbib Warning: Citation `Done:2014aa' on page 4 undefined on input line 206.
-
-[4]
-
-Package natbib Warning: Citation `Done:2015aa' on page 5 undefined on input line 208.
-
-
-Package natbib Warning: Citation `Smith:2016aa' on page 5 undefined on input line 208.
-
-No file thesis.bbl.
-
-Package natbib Warning: There were undefined citations.
-
-[5] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+) [5] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.aux) ) 
 Here is how much of TeX's memory you used:
- 3304 strings out of 483098
- 49755 string characters out of 5964331
- 296641 words of memory out of 5000000
- 18289 multiletter control sequences out of 15000+600000
- 538319 words of font info for 44 fonts, out of 8000000 for 9000
- 59 hyphenation exceptions out of 8191
- 38i,8n,29p,668b,385s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/isaac/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on /home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.pdf (6 pages, 75288 bytes).
+ 3268 strings out of 481239
+ 48820 string characters out of 5920377
+ 301984 words of memory out of 5000000
+ 18480 multiletter control sequences out of 15000+600000
+ 537813 words of font info for 42 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 38i,8n,29p,668b,238s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb>
+Output written on /home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.pdf (6 pages, 70030 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 43 PDF objects out of 1000 (max. 8388607)
+ 29 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
