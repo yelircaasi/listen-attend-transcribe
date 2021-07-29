@@ -25,3 +25,6 @@ echo "Data directory: $DATA_ROOT"
 # script to prepare all data sources
 python ./src/data_prep/prepare.py --root $DATA_ROOT --datasets timit,arcticl2,arabicsc,buckeye --features phones,cont,bin
 #python ./src/data_prep/prepare.py --root $DATA_ROOT --datasets arabicsc --features phones,cont,bin
+#python ./src/data_prep/prepare.py --root $DATA_ROOT --datasets timit --features phones,cont,bin
+#python ./src/data_prep/prepare.py --root $DATA_ROOT --datasets arcticl2 --features phones,cont,bin
+#python ./src/data_prep/prepare.py --root $DATA_ROOT --datasets buckeye --features phones,cont,bin

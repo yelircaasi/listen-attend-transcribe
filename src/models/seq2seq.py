@@ -6,6 +6,9 @@ import torch.nn.functional as F
 import torch.nn.utils.rnn as g
 import numpy as np
 
+import encoders
+import decoders
+
 gpu = torch.cuda.is_available()
 
 
@@ -14,7 +17,8 @@ class Seq2Seq(nn.Module):
     Sequence-to-sequence model at high-level view. It is made up of an EncoderRNN module and a DecoderRNN module.
     """
 
-    def __init__(self, target_size, hidden_size, encoder_layers, decoder_layers, drop_p=0.):
+    def __init__(self, target_size, hidden_size, encoder_layers, decoder_layers, drop_p=0.,
+                 output_type):
         """
         Args:
             target_size (integer): Target vocabulary size.
@@ -25,10 +29,19 @@ class Seq2Seq(nn.Module):
         """
         super(Seq2Seq, self).__init__()
 
-        self.encoder = EncoderRNN(hidden_size, encoder_layers, drop_p)
-        self.decoder = DecoderRNN(
-            target_size, hidden_size, decoder_layers, drop_p)
-
+        self.encoder = encoders.EncoderRNN(hidden_size, encoder_layers, drop_p)
+        if output_type == "":
+            self.decoder = decoders.PhoneDecoderRNN(
+                target_size, hidden_size, decoder_layers, drop_p)
+        elif output_type == "":
+            self.decoder = decoders.BinFeatDecoderRNN(
+                target_size, hidden_size, decoder_layers, drop_p)
+        elif output_type == "":
+            self.decoder = decoders.ContFeatDecoderRNN(
+                target_size, hidden_size, decoder_layers, drop_p)
+        else:
+            raise NotImplementedError
+            
     def forward(self, xs, xlens, ys=None):
         """
         The forwarding behavior depends on if ground-truths are provided.

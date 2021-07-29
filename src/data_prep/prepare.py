@@ -1,9 +1,9 @@
 """ Create reference list of audio files and transcripts, 
       then create Pytorch-NLP tokenizer for TIMIT.
 """
-import torch
+#import torch
 import os
-import glob
+#import glob
 import argparse
 import pandas as pd
 from featurizers import build_featurizer
@@ -48,8 +48,8 @@ def main():
                 "Dataset {args.dataset} not available. Check spelling and try again.")
             continue
 
-        data_dir = os.path.join(args.root, dataset_dirnames[dataset])
-        process_dataset(data_dir)
+        #data_dir = os.path.join(args.root, dataset_dirnames[dataset])
+        process_dataset(args.root, dataset_dirnames[dataset])
 
         if dataset == "arcticl2":
             dataset = "arcticl2_all"
@@ -57,7 +57,7 @@ def main():
         for feat_type in args.features.split(","):
             build_featurizer(dataset, feat_type)
     
-    print("Data preparation is complete !")
+    print("Data preparation is complete!")
 
 
 if __name__ == '__main__':

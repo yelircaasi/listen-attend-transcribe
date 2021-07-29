@@ -39,7 +39,6 @@ def read_textgrid(textgrid_path):
     with open(textgrid_path) as f:
         text = f.read().split("name = \"phones\"")[-1].split("name = \"")[0]
     phon_seq = re.findall("(?<=text = \").+?(?=\")", text)
-    print(phon_seq)
     phonemes = " ".join(phon_seq)
     ipa_seq = " ".join([ipa.arpadict.get(p, "%") for p in phon_seq])
     return phonemes, ipa_seq
@@ -58,16 +57,16 @@ def read_annotation(textgrid_path):
         ipa_seq (string): The sequence of IPA characters, converted from 
     """
     with open(textgrid_path) as f:
-        text = f.read().split("name = \"phones\"")[-1].split("name = \"")
+        text = f.read().split("name = \"phones\"")[-1].split("name = \"")[0]
     phon_seq = re.findall("text = \".+?\"", text)
     phon_seq = [x.split(",")[1] if "," in x else x for x in phon_seq]
     #phonemes = " ".join(phon_seq)
     ipa_seq = " ".join([ipa.arpadict.get(p, "%") for p in phon_seq])
     phon_seq = " ".join(phon_seq)
-    return ipa_seq
+    return phon_seq, ipa_seq
     
 
-def process_dataset(root):
+def process_dataset(root, arcticl2_dir):
     """
     List audio files and transcripts for a certain partition of TIMIT dataset.
     Args:
@@ -75,24 +74,33 @@ def process_dataset(root):
         split (string): Which of the subset of data to take. One of 'train', 'dev' or 'test'.
     """
     print(root)
+    print(arcticl2_dir)
     audio_files = []
     for speaker in SPEAKERS:
-        folder = os.path.join(root, speaker, "wav")
+        folder = os.path.join(root, arcticl2_dir, speaker, "wav")
         audio_files.extend([os.path.join(folder, f) for f in os.listdir(folder) if f.endswith(".wav")])
+
+    relativize = lambda file_path: file_path.replace(root, "").strip("/")
 
     seq_manual = []
     seq_auto = []
     seq_all = []
-    for file in audio_files[:10]:
-        manual = file[:-4].replace("/wav/", "/annotations/") + ".TextGrid" 
+    for file in audio_files:
+        manual = file[:-4].replace("/wav/", "/annotation/") + ".TextGrid" 
         auto = file[:-4].replace("/wav/", "/textgrid/") + ".TextGrid" 
-        phonseq, ipaseq = read_textgrid(auto)
-        seq_all.append(f"{file},{phonseq},{ipaseq}")
-        if os.path.exists(manual):
-            phonseq_, ipaseq_ = read_annotation(manual)
-            seq_manual.append(f"{file},{phonseq_},{ipaseq_}")
+        if "suitcase_corpus" in file:
+            phonseq, ipaseq = read_annotation(manual)
+            line = f"{relativize(file)},{phonseq},{ipaseq}"
+            seq_all.append(line)
+            seq_manual.append(line)
         else:
-            seq_auto.append(f"{file},{phonseq},{ipaseq}")
+            phonseq, ipaseq = read_textgrid(auto)
+            seq_all.append(f"{relativize(file)},{phonseq},{ipaseq}")
+            if os.path.exists(manual):
+                phonseq_, ipaseq_ = read_annotation(manual)
+                seq_manual.append(f"{relativize(file)},{phonseq_},{ipaseq_}")
+            else:
+                seq_auto.append(f"{relativize(file)},{phonseq},{ipaseq}")
 
     for name, list_ in zip(["manual", "auto", "all"], [seq_manual, seq_auto, seq_all]):
         nobs = len(list_)

@@ -53,7 +53,7 @@ def read_phonemes(textgrid_path):
 #    return ipa_seq
 
 
-def process_dataset(root):
+def process_dataset(root, arabicsc_dir):
     """
     List audio files and transcripts for a certain partition of TIMIT dataset.
     Args:
@@ -61,8 +61,10 @@ def process_dataset(root):
         split (string): Which of the subset of data to take. One of 'train', 'dev' or 'test'.
     """
     print(root)
-    root_test = os.path.join(root, "test set")
-    print(root_test)
+    print(arabicsc_dir)
+    base = os.path.join(root, arabicsc_dir)
+    base_test = os.path.join(base, "test set")
+    print(base_test)
     #audio_files = []
     #phones_files = []
     
@@ -74,11 +76,12 @@ def process_dataset(root):
             tg = file.replace("/wav/", "/textgrid/").replace(".wav", ".TextGrid")
             if os.path.exists(tg):
                 phonseq, ipaseq = read_phonemes(tg)
-                lines_.append(f"{file},{phonseq},{ipaseq}")
+                relpath = file.replace(root, "").strip("/")
+                lines_.append(f"{relpath},{phonseq},{ipaseq}")
         return lines_
     
-    trainlines = get_lines(root)
-    testlines = get_lines(root_test)
+    trainlines = get_lines(base)
+    testlines = get_lines(base_test)
     #print(trainlines)
     #print(testlines)
     np.random.shuffle(trainlines)

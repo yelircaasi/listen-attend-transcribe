@@ -36,7 +36,7 @@ def read_phonemes(textgrid_path):
     return phonemes, ipa_seq
 
 
-def process_dataset(root):
+def process_dataset(root, buckeye_dir):
     """
     List audio files and transcripts for a certain partition of TIMIT dataset.
     Args:
@@ -44,10 +44,14 @@ def process_dataset(root):
         split (string): Which of the subset of data to take. One of 'train', 'dev' or 'test'.
     """
     print(root)
+    print(buckeye_dir)
     #audio_files = []
     #phones_files = []
+
+    relativize = lambda file_path: file_path.replace(root, "").strip("/")
+
     lines = []
-    for sXX in [os.path.join(root, f) for f in os.listdir(root) if len(f) == 3 and f.startswith("s")]:
+    for sXX in [os.path.join(root, buckeye_dir, f) for f in os.listdir(os.path.join(root, buckeye_dir)) if len(f) == 3 and f.startswith("s")]:
         #print("sXX", sXX)
         for sXXXXX in os.listdir(sXX):
             folder = os.path.join(root, sXX, sXXXXX)
@@ -60,6 +64,7 @@ def process_dataset(root):
                 elif file.endswith(".phones"):
                     line.extend(read_phonemes(file))
             line.sort(key=lambda x: x.startswith("/"), reverse=True)
+            line[0] = relativize(line[0])
             lines.append(",".join(line))
     nobs = len(lines)
     np.random.shuffle(lines)

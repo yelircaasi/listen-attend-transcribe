@@ -38,7 +38,7 @@ def read_phonemes(audio_file):
     return phonemes, ipa_seq
 
 
-def process_dataset(root):
+def process_dataset(root, timit_dir):
     """
     List audio files and transcripts for a certain partition of TIMIT dataset.
     Args:
@@ -46,13 +46,17 @@ def process_dataset(root):
         split (string): Which of the subset of data to take. One of 'train', 'dev' or 'test'.
     """
     print(root)
+    print(timit_dir)
+
+    relativize = lambda file_path: file_path.replace(root, "").strip("/")
+
     for split in ["train", "test", "dev"]:
         if split == "train":
             audio_files = glob.glob(os.path.join(
-                root, "data/TRAIN/**/*.WAV"), recursive=True)
+                root, timit_dir, "data/TRAIN/**/*.WAV"), recursive=True)
         else:
             audio_files = glob.glob(os.path.join(
-                root, "data/TEST/**/*.WAV"), recursive=True)
+                root, timit_dir, "data/TEST/**/*.WAV"), recursive=True)
             if split == 'dev':
                 audio_files = [p for p in audio_files if p.split(
                     '/')[-2] not in SPEAKERS_TEST]
@@ -69,5 +73,6 @@ def process_dataset(root):
         with open(fname, 'w') as f:
             f.write(f"audio,phonemes,ipa\n")
             for (x, (y, z)) in zip(audio_files, transcripts):
-                f.write(f"{x},{y},{z}\n")
+                relpath = relativize(x)
+                f.write(f"{relpath},{y},{z}\n")
         print(f"{fname} is created.")

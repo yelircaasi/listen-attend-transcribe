@@ -16,7 +16,7 @@ class PhoneDecoderRNN(nn.Module):
     A decoder network which applies Luong attention (https://arxiv.org/abs/1508.04025).
     """
 
-    def __init__(self, target_size, hidden_size, num_layers, drop_p):
+    def __init__(self, target_size, hidden_size, num_layers, drop_p,):
         """
         Args:
             target_size (integer): Size of the target vocabulary.
