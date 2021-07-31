@@ -2,6 +2,8 @@
 logdir: checkpoints/binfeat
 
 datadir: /mount/studenten/arbeitsdaten-studenten1/rileyic
+dataset: arcticl2
+output_type: bin
 
 model:
 # hidden_size: Number of hidden units in GRU cells.

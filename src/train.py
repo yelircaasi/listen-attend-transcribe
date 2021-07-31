@@ -1,7 +1,7 @@
 """ Train the model.
 """
-import yaml
 import os
+import yaml
 import argparse
 import time
 import torch
@@ -82,8 +82,8 @@ def main():
     dev_loader = data.load(split='dev', batch_size=cfg['train']['batch_size'])
 
     # Build model
-    tokenizer = torch.load('tokenizer.pth')
-    model = seq2seq.Seq2Seq(len(tokenizer.vocab),
+    featurizer = torch.load('tokenizer.pth')
+    model = seq2seq.Seq2Seq(len(featurizer.vocab),
                                 hidden_size=cfg['model']['hidden_size'],
                                 encoder_layers=cfg['model']['encoder_layers'],
                                 decoder_layers=cfg['model']['decoder_layers'],

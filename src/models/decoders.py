@@ -46,7 +46,7 @@ class PhoneDecoderRNN(nn.Module):
 
     def forward(self, encoder_states, ground_truths=None):
         """
-        The forwarding behavior depends on if ground-truths are provided.
+        The forwarding behavior depends on whether ground-truths are provided.
         Args:
             encoder_states (PackedSequence): Packed output state vectors from the EncoderRNN.
             ground_truths (torch.LongTensor, [batch_size, padded_len_tgt]): Padded ground-truths.

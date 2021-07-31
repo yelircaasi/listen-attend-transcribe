@@ -10,17 +10,27 @@ import numpy as np
 import torch.nn.utils.rnn as rnn_utils
 from torch.utils.data import Dataset, DataLoader
 sys.path.append("resources")
+sys.path.append("src/data_prep")
+import featurizers
+
+dataset_dict = {
+    "timit": "timit",
+    "arcticl2": "arctic_l2",
+    "arabicsc": "arabic_speech_corpus",
+    "buckeye": "buckeye"
+}
 
 class ASR(Dataset):
     """
     Stores a Pandas DataFrame in __init__, and reads and preprocesses examples in __getitem__.
     """
-    def __init__(self, split, dataset_name="timit", output_type="phones", stack_frames=3):
+    def __init__(self, split, dataset_dir, dataset_name="timit", output_type="phones", stack_frames=3):
         split = split.upper()
-        self.df = pd.read_csv('resources/datalists/{dataset_name}_{split}.csv')
+        self.df = pd.read_csv(f"resources/datalists/{dataset_name}_{split}.csv")
+        self.data_dir = dataset_dir
         self.dataset_name = dataset_name
         self.output_type = output_type
-        self.tokenizer = torch.load(f"resources/tokenizer_{dataset_name}_{output_type}.pth")
+        self.tokenizer = torch.load(f"resources/featurizer_{dataset_name}_{output_type}.pth")
         self.stack_frames = stack_frames
         
     def __len__(self):
@@ -32,8 +42,8 @@ class ASR(Dataset):
             x (torch.FloatTensor, [seq_length, dim_features]): The FBANK features.
             y (torch.LongTensor, [n_tokens]): The label sequence.
         """
-        x, y = self.df.iloc[idx]
-        x, _ = torchaudio.load(x)
+        x, _, y = self.df.iloc[idx]
+        x, _ = torchaudio.load(os.path.join(self.data_dir, x))
         # Compute filter bank features
         x = torchaudio.compliance.kaldi.fbank(x, num_mel_bins=80)   # [n_windows, 80]
         # Stack every 3 frames and down-sample frame rate by 3, following https://arxiv.org/pdf/1712.01769.pdf.
@@ -60,7 +70,7 @@ class ASR(Dataset):
         return xs, xlens, ys
 
 
-def load(split, batch_size, dataset, output, nstack, workers=0):
+def load(split, batch_size, data_dir, dataset_key, output, nstack, workers=0):
     """
     Args:
         split (string): Which of the subset of data to take. One of 'train', 'dev' or 'test'.
@@ -71,10 +81,11 @@ def load(split, batch_size, dataset, output, nstack, workers=0):
     """
     split = split.upper()
     assert split in ['TRAIN', 'DEV', 'TEST']
-    n = len(dataset)
+    data_name = dataset_dict[dataset_key]
 
-    dataset = ASR(split, dataset_name=dataset, output_type=output, stack_frames=nstack)
-    print ("{split} set size: {n}")
+    dataset = ASR(split, data_dir, dataset_name=data_name, output_type=output, stack_frames=nstack)
+    n = dataset.__len__()
+    print (f"{split} set size: {n}")
     loader = DataLoader(dataset,
                         batch_size=batch_size,
                         collate_fn=dataset.generateBatch,
@@ -84,12 +95,38 @@ def load(split, batch_size, dataset, output, nstack, workers=0):
     return loader
 
 
-def inspect_data():
+def inspect_data(data_prefix, dataset, split, batch_size, output, nstack):
     """
     Test the functionality of input pipeline and visualize a few samples.
     """
     import matplotlib.pyplot as plt
+    print("\n********************************")
+    print(f"Dataset: {dataset}\nSplit: {split}")
+    print(f"Batch size: {batch_size}")
+    print(f"Output type: {output}")
+    print(f"Frames stacked: {nstack}")
+    print("********************************")
 
+    loader = load(split, batch_size, data_prefix, dataset, output, nstack)
+    tokenizer = torch.load(f"resources/featurizers/featurizer_{dataset}_{output}.pth")
+    print ("Vocabulary size:", len(tokenizer.vocab))
+    print ("Vocabulary: ", tokenizer.vocab)
+
+    xs, xlens, ys = next(iter(loader))
+    print ("Dimensions of X: ", xs.shape) 
+    print("Dimensions of y: ", ys.shape)
+    print()
+    for i in range(batch_size):
+        print ("y indices:\t", ys[i])
+        print ("y labels:\t", tokenizer.decode(ys[i]))
+        plt.figure()
+        plt.imshow(xs[i].T)
+        plt.show()
+        print()
+    print("\n")
+
+
+if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Inspect data.")
     parser.add_argument('--dataset', type=str, help="Which data to inspect.")
     parser.add_argument('--split', default='dev', type=str,
@@ -97,25 +134,8 @@ def inspect_data():
     parser.add_argument("--batch_size", default=8, type=int)
     parser.add_argument('--output', default="phones", type=str,
                         help="Output type: phones / bin feats / cont feats.")
-    parser.add_argument("--nstack", default=3, default=3, type=int, 
+    parser.add_argument("--nstack", default=3, type=int, 
                         help="number of frames to stack")
     args = parser.parse_args()
-
-    loader = load(args.split, args.batch_size, args.dataset, args.output, args.nstack)
-    tokenizer = torch.load('tokenizer.pth')
-    print ("Vocabulary size:", len(tokenizer.vocab))
-    print (tokenizer.vocab)
-
-    xs, xlens, ys = next(iter(loader))
-    print (xs.shape, ys.shape)
-    for i in range(args.batch_size):
-        print (ys[i])
-        print (tokenizer.decode(ys[i]))
-        plt.figure()
-        plt.imshow(xs[i].T)
-        plt.show()
-
-
-if __name__ == '__main__':
-
-    inspect_data()
+    inspect_data(args.dataset, args.split, args.batch_size, 
+                 args.output, args.nstack)

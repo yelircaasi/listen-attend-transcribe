@@ -2,6 +2,8 @@
 logdir: checkpoints/default
 
 datadir: /mount/studenten/arbeitsdaten-studenten1/rileyic
+dataset: timit
+output_type: phones
 
 model:
 # hidden_size: Number of hidden units in GRU cells.

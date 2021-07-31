@@ -17,8 +17,8 @@ class Seq2Seq(nn.Module):
     Sequence-to-sequence model at high-level view. It is made up of an EncoderRNN module and a DecoderRNN module.
     """
 
-    def __init__(self, target_size, hidden_size, encoder_layers, decoder_layers, drop_p=0.,
-                 output_type):
+    def __init__(self, target_size, hidden_size, encoder_layers, decoder_layers,
+                 output_type, drop_p=0.):
         """
         Args:
             target_size (integer): Target vocabulary size.

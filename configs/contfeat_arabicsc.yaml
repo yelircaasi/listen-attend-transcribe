@@ -2,7 +2,9 @@
 logdir: checkpoints/contfeat
 
 datadir: /mount/studenten/arbeitsdaten-studenten1/rileyic
-
+da
+output_type: cont
+dataset: arabicsc
 model:
 # hidden_size: Number of hidden units in GRU cells.
 # drop_p: Dropout rate.

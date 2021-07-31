@@ -9,6 +9,7 @@ import pandas as pd
 
 #from pandas.io.parsers import ParserBase
 from torchnlp.encoders.text import StaticTokenizerEncoder
+# https://pytorchnlp.readthedocs.io/en/latest/source/torchnlp.encoders.html
 
 sys.path.append(os.path.join(Path(__file__).parent.parent.parent, "resources"))
 import ipa
@@ -45,22 +46,22 @@ def detokenize_fn(s_in):
     return s_out
 
 
-def get_feats(filepath, continuous=False, as_dict=True):
-    """
-    A function to 
-    """
-    if continuous:
-        featdf = pd.read_csv("../ipa/features_cont.tsv",
-                             sep="\t", header=None, index_col=0)
-    else:
-        featdf = pd.read_csv("../ipa/features_bin.tsv",
-                             sep="\t", header=None, index_col=0)
-    if as_dict:
-        feats = {}
-        for i in featdf.index:
-            feats[i] = np.array(featdf.loc[i])
-            return feats
-    return featdf
+#def get_feats(filepath, continuous=False, as_dict=True):
+#    """
+#    A function to 
+#    """
+#    if continuous:
+#        featdf = pd.read_csv("../ipa/features_cont.tsv",
+#                             sep="\t", header=None, index_col=0)
+#    else:
+#        featdf = pd.read_csv("../ipa/features_bin.tsv",
+#                             sep="\t", header=None, index_col=0)
+#    if as_dict:
+#        feats = {}
+#        for i in featdf.index:
+#            feats[i] = np.array(featdf.loc[i])
+#            return feats
+#    return featdf
 
 
 class FeaturizerCont(StaticTokenizerEncoder):
@@ -77,8 +78,18 @@ class FeaturizerCont(StaticTokenizerEncoder):
         n = len(orig_seq)
         matrix = np.zeros((n, 33))
         for i, seg in enumerate(orig_seq):
-            matrix[i] = ipa.contfeat[seg]
+            matrix[i] = ipa.contfeats[seg]
         return torch.tensor(matrix)
+    
+    def decode(self, data):
+        return None
+
+    def decode_beam_search(self, preds, beam_size):
+        """
+        Implements beam search to find best phonetic sequence
+            given feature predictions.
+        """
+        return None
 
 
 class FeaturizerBin(StaticTokenizerEncoder):
@@ -89,8 +100,19 @@ class FeaturizerBin(StaticTokenizerEncoder):
         n = len(orig_seq)
         matrix = np.zeros((n, 43))
         for i, seg in enumerate(orig_seq):
-            matrix[i] = ipa.binfeat[seg]
+            matrix[i] = ipa.binfeats[seg]
         return torch.tensor(matrix)
+
+    def decode(self, data):
+        return None
+
+    def decode_beam_search(self, preds, beam_size):
+        """
+        Implements beam search to find best phonetic sequence
+            given feature predictions.
+        """
+        return None
+
 
 
 
@@ -126,6 +148,6 @@ def build_featurizer(dataset, feature_type):
                                    detokenize=detokenize_fn)
     
     dataset = dataset.split("_")[0]
-    save_path = f"resources/featurizer_{dataset}_{feature_type}.pth"
+    save_path = f"resources/featurizers/featurizer_{dataset}_{feature_type}.pth"
     torch.save(featurizer, save_path)
     print(f"{save_path} saved.")

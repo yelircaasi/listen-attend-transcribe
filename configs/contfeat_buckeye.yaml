@@ -2,6 +2,8 @@
 logdir: checkpoints/contfeat
 
 datadir: /mount/studenten/arbeitsdaten-studenten1/rileyic
+dataset: buckeye
+output_type: cont
 
 model:
 # hidden_size: Number of hidden units in GRU cells.

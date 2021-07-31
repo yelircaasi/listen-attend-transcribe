@@ -29,7 +29,7 @@ def read_phonemes(audio_file):
     Returns:
         phonemes (string): A sequence of phonemes for this audio file
     """
-    phn_file = audio_file[:-4] + '.PHN'
+    phn_file = audio_file[:-8] + '.PHN'
     with open(phn_file) as f:
         phonemes = f.readlines()
     phon_seq = [p.strip().split()[-1] for p in phonemes]
@@ -53,10 +53,10 @@ def process_dataset(root, timit_dir):
     for split in ["train", "test", "dev"]:
         if split == "train":
             audio_files = glob.glob(os.path.join(
-                root, timit_dir, "data/TRAIN/**/*.WAV"), recursive=True)
+                root, timit_dir, "data/TRAIN/**/*.WAV.wav"), recursive=True)
         else:
             audio_files = glob.glob(os.path.join(
-                root, timit_dir, "data/TEST/**/*.WAV"), recursive=True)
+                root, timit_dir, "data/TEST/**/*.WAV.wav"), recursive=True)
             if split == 'dev':
                 audio_files = [p for p in audio_files if p.split(
                     '/')[-2] not in SPEAKERS_TEST]
