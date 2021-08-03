@@ -10,4 +10,5 @@ fi
 echo $CURRENT
 
 # script to train the model on on binary features
-python train.py configs/default.yaml
+python src/train.py configs/default.yaml
+

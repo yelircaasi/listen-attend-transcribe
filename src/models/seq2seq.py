@@ -6,6 +6,10 @@ import torch.nn.functional as F
 import torch.nn.utils.rnn as g
 import numpy as np
 
+import sys
+print(sys.path)
+sys.path.append("src")
+sys.path.append("src/models")
 import encoders
 import decoders
 

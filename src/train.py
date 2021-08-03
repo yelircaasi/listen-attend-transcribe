@@ -78,16 +78,28 @@ def main():
         os.mkdir(save_path)
 
     # Create dataset
-    train_loader = data.load(split='train', batch_size=cfg['train']['batch_size'], workers=args.workers)
-    dev_loader = data.load(split='dev', batch_size=cfg['train']['batch_size'])
+    train_loader = data.load("train", 
+                             cfg["train"]["batch_size"], 
+                             cfg["datadir"], 
+                             cfg["dataset"], 
+                             cfg["output_type"],
+                             cfg["nstack"])
+    dev_loader = data.load("dev", 
+                           cfg["train"]["batch_size"],
+                           cfg["datadir"],
+                           cfg["dataset"],
+                           cfg["output_type"],
+                           cfg["nstack"])
 
     # Build model
-    featurizer = torch.load('tokenizer.pth')
-    model = seq2seq.Seq2Seq(len(featurizer.vocab),
-                                hidden_size=cfg['model']['hidden_size'],
-                                encoder_layers=cfg['model']['encoder_layers'],
-                                decoder_layers=cfg['model']['decoder_layers'],
-                                drop_p=cfg['model']['drop_p'])
+    featurizer = torch.load(f"resources/featurizers/featurizer_{cfg['dataset']}_{cfg['output_type']}.pth")
+    model = seq2seq.Seq2Seq(80 * cfg["nstack"],
+                            len(featurizer.vocab),
+                            cfg["model"]["hidden_size"],
+                            cfg["model"]["encoder_layers"],
+                            cfg["model"]["decoder_layers"],
+                            cfg["output_type"],
+                            drop_p=cfg["model"]["drop_p"])
     model = model.cuda()
 
     # Training criteria
@@ -136,7 +148,7 @@ def main():
                 n_tokens += (ys[:,1:] > 0).long().sum()
         dev_loss = dev_loss / n_tokens
         # Compute dev error rate
-        error = eval_utils.get_error(dev_loader, model)
+        error = eval_utils.get_error(dev_loader, model, featurizer)
         print ("Dev. loss: %.3f," % dev_loss, end=' ')
         print ("dev. error rate: %.4f" % error)
         if error < best_error:
@@ -150,11 +162,11 @@ def main():
 
         # Save checkpoint
         if not epoch%args.ckpt_freq or epoch==cfg['train']['epochs']:
-            save_checkpoint("checkpoint_%05d.pth"%epoch, save_path, epoch, error, cfg, model.state_dict())
+            save_checkpoint(f"checkpoint_{cfg['dataset']}_{cfg['output_type']}_{epoch:05d}.pth", save_path, epoch, error, cfg, model.state_dict())
 
         # Logging
         datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        msg = "%s,%d,%f,%f,%f,%f" % (datetime, epoch, lr, train_loss, dev_loss, error)
+        msg = f"{datetime},{epoch},{lr},{train_loss},{dev_loss},{error}"
         log_history(save_path, msg)
 
 

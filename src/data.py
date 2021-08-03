@@ -35,7 +35,7 @@ class ASR(Dataset):
         self.dataset_name = dataset_key.replace("_all", "")
         self.tokenizer = torch.load(f"resources/featurizers/featurizer_{self.dataset_name}_{output_type}.pth")
         self.stack_frames = stack_frames
-        p
+        
     def __len__(self):
         return len(self.df)
 
