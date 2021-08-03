@@ -4,3 +4,148 @@ sequence-to-sequence architecture. This architecture consists of an
 encoder, a decoder, and an attention mechanism, each of which will be discussed 
 in greater detail below.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Phone Recognition Model}
+\paragraph{Encoder} %---------------------------------------------------
+The audio files in .wav format are pre-processed into 80-dimensional filter
+banks to be input into the encoder. Additionally, in some experiments between 
+2 and 4 frames are ``stacked''. Thus, for an input sample with $N$ frames, 
+stacking would result in and $N/2$ frames each with dimensionality of 160; 
+stacking 3 frames results in $N/3$ frames each with dimensionality 240, and 
+so on.
+
+The encoder is a 
+
+
+\paragraph{Decoder} %---------------------------------------------------
+The initial decoder state, like the initial encoder state, contains learnable 
+parameters; each successive state is derived from the previous decoder state and 
+from the encoder output.
+
+At time step $t$, the decoder's task is to predict the next output, $\hat{y}_t$.
+To do this it uses the embedding of the last prediction, $m_t = W^E(\hat{y}_{t-1})$.
+
+$$ \textbf{h}_t = \textrm{GRU} \left( \begin{bmatrix}
+    \textbf{m}_{t-1} \\ \textbf{o}_{t-1}
+\end{bmatrix}, \textbf{h}_{t-1} \right)$$
+
+$$ \textbf{o}_t =  \textrm{ReLU} \left( W^o \begin{bmatrix}
+    \textbf{a}_t \\ \textbf{h}_t
+\end{bmatrix} \right) $$
+
+$$ \hat{\textbf{y}}_t = W^C \textbf{o}_t $$
+
+$$  $$
+
+\paragraph{Attention Mechanism} %---------------------------------------
+The attention mechanism in deep learning is a fairly recent innovation [XXX]
+enabling the neural network to, for each unit of output, distinguish 
+certains parts of the input as more relevant to that output, thus emulating the 
+human tendency to focus on portions of the input, rather than dividing one's attention
+uniformly over the entire input (as earlier encoder-decoder arcitectures were required 
+to do by default).
+
+Attention can be thought of as a kind of query system, in which the last predicted
+unit of output can be used to `query' the output of the encoder and create a weighted
+sum of the encoder (source) states for further use in the decoder.
+
+Formally, at time step $t$ in the decoding process,
+$$ \alpha_t = \textrm{softmax}\left( \textrm{ReLU}( W^e S^e + W^h \textbf{h}^t [1]_{1 \times N} ) \textbf{v} \right). $$
+where $S^e$ is the matrix of encoder state vectors, 
+$\textbf{s}^d$ is the current decoder state vector, the $W$ are the corresponding 
+weight matrices, and $\textbf{v}$ is a weight vector. 
+The row vector $[1]_{1 \times N}$ serves simply to `copy' the single target state vector 
+to be added to each of the encoder state vectors.
+We compute the attention values as a weighted sum of source states:
+$$ \textbf{a}_t = \sum\limits_{i=1}^{N} \alpha_{ti} \textbf{s}_i^{\tiny \textrm{source}}. $$
+Note that $t$ is used to index decoder steps, while $i$ indexes to encoder steps.
+%A weight vector $\alpha$ is calculated 
+
+For convenience, the model notation used is summarized below:
+\begin{itemize}
+    \item $X $: input consisting of $N$ frames of $80k$-dimensional FBANK features, where $k$ is the parameter indicating how many consicutive frames are to be stacked \\
+    \item $Y $: $V \times M $ output matrix consisting of $M$ $V$-dimensional one-hot vectors corresponding to phone IDs; $V$ is vocabulary size \\
+    \item $W^e \in \mathbb{R}^{h \times 2h}$: attention weight matrix for encoder state matrix
+    \item $W^h \in \mathbb{R}^{h \times h}$: attention weight matrix for target state vector 
+    \item $\textbf{h}_t $: decoder hidden state at time $t$
+    \item $t $: decoder time step; corresponds to output phone number
+    \item $i $: encoder time step; corresponds to input frames 
+    \item $\hat{\textbf{y}}_t$: prediction for phone $t$
+    \item $\textbf{m}_t $: embedding of prediction $\hat{y}_t$ or ground truth $y_t$
+    \item $W^m$: embedding matrix used to compute $\textbf{m}_t$
+    \item $W^c $: classifier weights, used to generate a prediction from the output vector
+    \item $a_t $: attention vector at time step $t$ 
+    \item $S$: matrix of encoder state targets 
+    \item $ $ 
+    \item $ $ 
+    \item $ $ 
+    \item $ $ 
+    \item $ $ 
+    \item $ $ 
+    \item $ $ 
+    
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Articulatory Feature Models}
+
+Both the binary and contintuous articulatory feature models, (henceforth
+simply the binary and continuous models for brevity), retain the basic 
+structure and approach of the phone recognition model. The primary difference
+is that rather than predicting a discrete sequence of phone, these models 
+predict articulatory features rather than phones. This provides greater 
+universality because the articulatory features allow for the description
+of any realizable phone\footnote{Some extremely rare articulatory features 
+have been omitted due to a lack of suitable data; however the phone set used here is capable 
+of fully describing all high-resource and nearly all medium-resource languages.}, 
+and the number of features is less than the phonetic inventory of nearly 
+all langages, which allows for more compact representations.
+
+The articulatory features are summarized in Table \ref{table:artfeats}.
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|c||l|l|c|} \hline
+    Group & Binary Feature & Continuous? & Group & Binary Feature & Continuous? \\ \hline
+    Quality & Voiced & \checkmark & Place & Front &  \checkmark \\
+    Class & Silence & \checkmark & & Near-Front & \\
+    & Vowel & \checkmark & & Central  &  \\
+    & Pulmonic & \checkmark & & Near-Back &  \\ 
+    & Pulmonic Consonant & \checkmark & & Back & \\
+    & Non-pulmonic Consonant & \checkmark & & Close &  \\
+    Style & Rounded & \checkmark & & Near-Close &  \\
+    & Rhoticized & \checkmark & & Close-Mid &  \\
+    Manner & Plosive & \checkmark & & Open-Mid &  \\
+    & Nasal & \checkmark & & Near-Open &  \\
+    & Trill & \checkmark & & Open &  \checkmark \\
+    & Tap/Flap & \checkmark & & Schwa &  \\
+    & Fricative & \checkmark & & Bilabial &  \checkmark \\
+    & Lateral Fricative & \checkmark & & Labiodental &  \checkmark \\
+    & Affricate & \checkmark & & Dental &  \checkmark \\
+    & Approximant & \checkmark & & Alveolar &  \checkmark \\
+    & Lateral Approximant & \checkmark & & Postalveolar &  \checkmark \\
+    & Click & \checkmark & & Retroflex &  \checkmark \\
+    & Implosive & \checkmark & & Palatal &  \checkmark \\
+    & Ejective & \checkmark & & Velar &  \checkmark \\
+    & & & & Uvular &  \checkmark \\
+    & & & & Pharyngeal &  \checkmark \\
+    & & & & Glottal &  \checkmark \\
+    & & & & Lateral &  \checkmark \\ \hline 
+\end{tabular}
+\end{center}
+\caption{Binary and Continuous Articulatory Features}
+\label{table:artfeats}
+\end{table}
+
+\paragraph{Encoder} %---------------------------------------------------
+
+
+\paragraph{Decoder} %---------------------------------------------------
+
+
+\paragraph{Attention Mechanism} %---------------------------------------
+
+
+
+

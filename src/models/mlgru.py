@@ -34,8 +34,10 @@ class MultiLayerGRUCell(nn.Module):
         One step forward pass.
         
         Args:
-            x (torch.FloatTensor, [batch_size, input_size]): The input features of current time step.
-            h (torch.FloatTensor, [num_layers, batch_size, hidden_size]): The hidden state of previous time step.
+            x (torch.FloatTensor, [batch_size, input_size]): 
+                The input features of current time step.
+            h (torch.FloatTensor, [num_layers, batch_size, hidden_size]): 
+                The hidden state of previous time step.
             
         Returns:
             outputs (torch.FloatTensor, [num_layers, batch_size, hidden_size]): The hidden state of current time step.

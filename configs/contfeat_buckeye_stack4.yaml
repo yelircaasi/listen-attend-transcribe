@@ -2,7 +2,7 @@
 logdir: checkpoints/contfeat
 
 datadir: /mount/studenten/arbeitsdaten-studenten1/rileyic
-dataset: arcticl2
+dataset: buckeye
 output_type: cont
 
 model:
@@ -10,6 +10,8 @@ model:
 # drop_p: Dropout rate.
 # encoder_layers: EncoderRNN layers.
 # decoder_layers: DecoderRNN layers.
+    input_size: 320
+    target_size: 33
     hidden_size: 256
     drop_p: 0.5
     encoder_layers: 3

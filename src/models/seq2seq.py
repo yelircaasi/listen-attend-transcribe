@@ -17,7 +17,8 @@ class Seq2Seq(nn.Module):
     Sequence-to-sequence model at high-level view. It is made up of an EncoderRNN module and a DecoderRNN module.
     """
 
-    def __init__(self, target_size, hidden_size, encoder_layers, decoder_layers,
+    def __init__(self, input_size, target_size, hidden_size, 
+                 encoder_layers, decoder_layers,
                  output_type, drop_p=0.):
         """
         Args:
@@ -29,14 +30,14 @@ class Seq2Seq(nn.Module):
         """
         super(Seq2Seq, self).__init__()
 
-        self.encoder = encoders.EncoderRNN(hidden_size, encoder_layers, drop_p)
-        if output_type == "":
+        self.encoder = encoders.EncoderRNN(input_size, hidden_size, encoder_layers, drop_p)
+        if output_type == "phones":
             self.decoder = decoders.PhoneDecoderRNN(
                 target_size, hidden_size, decoder_layers, drop_p)
-        elif output_type == "":
+        elif output_type == "bin":
             self.decoder = decoders.BinFeatDecoderRNN(
-                target_size, hidden_size, decoder_layers, drop_p)
-        elif output_type == "":
+                target_size, hidden_size, decoder_layers, drop_p) 
+        elif output_type == "cont":
             self.decoder = decoders.ContFeatDecoderRNN(
                 target_size, hidden_size, decoder_layers, drop_p)
         else:

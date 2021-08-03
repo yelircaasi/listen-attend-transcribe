@@ -13,26 +13,29 @@ sys.path.append("resources")
 sys.path.append("src/data_prep")
 import featurizers
 
-dataset_dict = {
+dataset_dict = { # map dataset codes todirectory names
     "timit": "timit",
     "arcticl2": "arctic_l2",
     "arabicsc": "arabic_speech_corpus",
-    "buckeye": "buckeye"
+    "buckeye": "buckeye",
+    "arcticl2_all": "arctic_l2"
 }
 
 class ASR(Dataset):
     """
     Stores a Pandas DataFrame in __init__, and reads and preprocesses examples in __getitem__.
     """
-    def __init__(self, split, dataset_dir, dataset_name="timit", output_type="phones", stack_frames=3):
+    def __init__(self, split, data_dir, dataset_key, output_type, stack_frames):
         split = split.upper()
-        self.df = pd.read_csv(f"resources/datalists/{dataset_name}_{split}.csv")
-        self.data_dir = dataset_dir
-        self.dataset_name = dataset_name
+        self.df = pd.read_csv(f"resources/datalists/{dataset_key}_{split}.csv")
+        self.data_dir = data_dir
+        self.dataset_key = dataset_key
+        self.dataset_folder = dataset_dict[dataset_key]
         self.output_type = output_type
-        self.tokenizer = torch.load(f"resources/featurizer_{dataset_name}_{output_type}.pth")
+        self.dataset_name = dataset_key.replace("_all", "")
+        self.tokenizer = torch.load(f"resources/featurizers/featurizer_{self.dataset_name}_{output_type}.pth")
         self.stack_frames = stack_frames
-        
+        p
     def __len__(self):
         return len(self.df)
 
@@ -81,9 +84,9 @@ def load(split, batch_size, data_dir, dataset_key, output, nstack, workers=0):
     """
     split = split.upper()
     assert split in ['TRAIN', 'DEV', 'TEST']
-    data_name = dataset_dict[dataset_key]
+    #data_dir = dataset_dict[dataset_key]
 
-    dataset = ASR(split, data_dir, dataset_name=data_name, output_type=output, stack_frames=nstack)
+    dataset = ASR(split, data_dir, dataset_key, output, nstack)
     n = dataset.__len__()
     print (f"{split} set size: {n}")
     loader = DataLoader(dataset,
@@ -108,6 +111,7 @@ def inspect_data(data_prefix, dataset, split, batch_size, output, nstack):
     print("********************************")
 
     loader = load(split, batch_size, data_prefix, dataset, output, nstack)
+    dataset = dataset.replace("_all", "")
     tokenizer = torch.load(f"resources/featurizers/featurizer_{dataset}_{output}.pth")
     print ("Vocabulary size:", len(tokenizer.vocab))
     print ("Vocabulary: ", tokenizer.vocab)

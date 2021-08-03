@@ -24,12 +24,13 @@ def main():
 
     featurizer = torch.load(f"resources/featurizers/featurizer_{cfg['dataset']}_{cfg['output_type']}.pth")
 
-    model = seq2seq.Seq2Seq(len(featurizer.vocab),
-                                hidden_size=cfg['model']['hidden_size'],
-                                encoder_layers=cfg['model']['encoder_layers'],
-                                decoder_layers=cfg['model']['decoder_layers'],
-                                output_type=cfg["output_type"],
-                                drop_p=cfg['model']['drop_p'])
+    model = seq2seq.Seq2Seq(input_size=cfg["model"]["input_size"],
+                            target_size=cfg["model"]["target_size"],
+                            hidden_size=cfg['model']['hidden_size'],
+                            encoder_layers=cfg['model']['encoder_layers'],
+                            decoder_layers=cfg['model']['decoder_layers'],
+                            output_type=cfg["output_type"],
+                            drop_p=cfg['model']['drop_p'])
     if torch.cuda.is_available():
         model = model.cuda()
     print(model)

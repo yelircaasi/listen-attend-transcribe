@@ -1,17 +1,17 @@
 # The location to save checkpoints. If null, it will be the same location and have the same name as this config file.
-logdir: checkpoints/default
+logdir: checkpoints/binfeat
 
 datadir: /mount/studenten/arbeitsdaten-studenten1/rileyic
-dataset: timit
-output_type: phones
+
+output_type: bin
 
 model:
 # hidden_size: Number of hidden units in GRU cells.
 # drop_p: Dropout rate.
 # encoder_layers: EncoderRNN layers.
 # decoder_layers: DecoderRNN layers.
-    input_size: 240
-    target_size: 53
+    input_size: 80
+    target_size: 43
     hidden_size: 256
     drop_p: 0.5
     encoder_layers: 3

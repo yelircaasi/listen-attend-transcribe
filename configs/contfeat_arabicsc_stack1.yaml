@@ -10,6 +10,8 @@ model:
 # drop_p: Dropout rate.
 # encoder_layers: EncoderRNN layers.
 # decoder_layers: DecoderRNN layers.
+    input_size: 80
+    target_size: 33
     hidden_size: 256
     drop_p: 0.5
     encoder_layers: 3

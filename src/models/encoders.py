@@ -1,3 +1,4 @@
+
 """ Define the network architecture.
 """
 import torch

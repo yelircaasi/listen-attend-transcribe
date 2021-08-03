@@ -7,8 +7,16 @@
 \contentsline {section}{\numberline {4}Resources}{4}%
 \contentsline {section}{\numberline {5}Methods}{5}%
 \contentsline {subsection}{\numberline {5.1}Phonetic Representations}{5}%
-\contentsline {subsection}{\numberline {5.2}Automatic Pronunciation Feedback}{5}%
-\contentsline {subsection}{\numberline {5.3}Accent Transfer in Phonetic Representation Space}{5}%
-\contentsline {subsection}{\numberline {5.4}Speech Synthesis from Phonetic Representations}{5}%
-\contentsline {section}{\numberline {6}Results}{5}%
-\contentsline {section}{\numberline {7}Conclusions}{5}%
+\contentsline {subsubsection}{\numberline {5.1.1}Phone Recognition Model}{5}%
+\contentsline {paragraph}{Encoder}{5}%
+\contentsline {paragraph}{Decoder}{5}%
+\contentsline {paragraph}{Attention Mechanism}{6}%
+\contentsline {subsubsection}{\numberline {5.1.2}Articulatory Feature Models}{8}%
+\contentsline {paragraph}{Encoder}{8}%
+\contentsline {paragraph}{Decoder}{8}%
+\contentsline {paragraph}{Attention Mechanism}{8}%
+\contentsline {subsection}{\numberline {5.2}Automatic Pronunciation Feedback}{8}%
+\contentsline {subsection}{\numberline {5.3}Accent Transfer in Phonetic Representation Space}{8}%
+\contentsline {subsection}{\numberline {5.4}Speech Synthesis from Phonetic Representations}{8}%
+\contentsline {section}{\numberline {6}Results}{10}%
+\contentsline {section}{\numberline {7}Conclusions}{10}%
