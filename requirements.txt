@@ -6,3 +6,4 @@ pandas
 PyYAML
 matplotlib
 tqdm
+pydub
