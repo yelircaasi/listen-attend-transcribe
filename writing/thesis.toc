@@ -1,35 +1,43 @@
 \babel@toc {german}{}
 \babel@toc {german}{}
 \babel@toc {german}{}
-\contentsline {section}{\numberline {1}Introduction}{5}%
-\contentsline {section}{\numberline {2}Background}{5}%
-\contentsline {subsection}{\numberline {2.1}Automatic Speech Recognition}{5}%
-\contentsline {subsection}{\numberline {2.2}Text-to-Speech Synthesis}{6}%
-\contentsline {subsection}{\numberline {2.3}Speech Signal Processing}{6}%
-\contentsline {subsubsection}{\numberline {2.3.1}Short-Time Fourier Transform}{6}%
-\contentsline {subsubsection}{\numberline {2.3.2}Mel Spectrum and Coefficients}{6}%
-\contentsline {subsubsection}{\numberline {2.3.3}}{6}%
-\contentsline {subsubsection}{\numberline {2.3.4}}{6}%
-\contentsline {subsection}{\numberline {2.4}Neural Networks}{6}%
-\contentsline {subsubsection}{\numberline {2.4.1}Feedforward Neural Networks}{6}%
-\contentsline {subsubsection}{\numberline {2.4.2}Recurrent Neural Networks}{6}%
-\contentsline {subsubsection}{\numberline {2.4.3}Convolutional Neural Networks}{6}%
-\contentsline {subsubsection}{\numberline {2.4.4}Generative Adversarial Networks}{6}%
-\contentsline {section}{\numberline {3}Related Work}{7}%
-\contentsline {subsection}{\numberline {3.1}Models Used}{7}%
-\contentsline {subsubsection}{\numberline {3.1.1}Tacotron 2}{7}%
-\contentsline {subsubsection}{\numberline {3.1.2}WaveGlow}{7}%
-\contentsline {subsubsection}{\numberline {3.1.3}Allosaurus}{8}%
-\contentsline {subsubsection}{\numberline {3.1.4}CycleGAN}{8}%
-\contentsline {subsubsection}{\numberline {3.1.5}SeqGAN}{8}%
-\contentsline {section}{\numberline {4}Resources}{8}%
-\contentsline {section}{\numberline {5}Methods}{9}%
-\contentsline {subsection}{\numberline {5.1}Phonetic Representation-Based Speech Synthesis and Accent Transfer}{9}%
-\contentsline {subsubsection}{\numberline {5.1.1}Speech Synthesis from Phonetic Representations}{9}%
-\contentsline {subsubsection}{\numberline {5.1.2}Accent Transfer in Phonetic Representation Space}{9}%
-\contentsline {subsection}{\numberline {5.2}Phonetic Transcription-Based Speech Synthesis and Accent Transfer}{9}%
-\contentsline {subsubsection}{\numberline {5.2.1}Transcription}{9}%
-\contentsline {subsubsection}{\numberline {5.2.2}Rule-Based Segmental Accent Transfer}{9}%
-\contentsline {subsubsection}{\numberline {5.2.3}GAN-Based Segmental Accent Transfer}{10}%
-\contentsline {section}{\numberline {6}Results}{10}%
-\contentsline {section}{\numberline {7}Conclusions}{10}%
+\contentsline {section}{\numberline {1}Introduction [4]}{5}%
+\contentsline {section}{\numberline {2}Background [9]}{6}%
+\contentsline {subsection}{\numberline {2.1}Automatic Speech Recognition [2]}{6}%
+\contentsline {subsection}{\numberline {2.2}Text-to-Speech Synthesis [1.5]}{6}%
+\contentsline {subsection}{\numberline {2.3}Speech Signal Processing [1.5]}{7}%
+\contentsline {subsubsection}{\numberline {2.3.1}Short-Time Fourier Transform}{7}%
+\contentsline {subsubsection}{\numberline {2.3.2}Mel Spectrum and Coefficients}{7}%
+\contentsline {subsubsection}{\numberline {2.3.3}}{7}%
+\contentsline {subsubsection}{\numberline {2.3.4}}{7}%
+\contentsline {subsection}{\numberline {2.4}Neural Networks [3]}{7}%
+\contentsline {subsubsection}{\numberline {2.4.1}Feedforward Neural Networks}{7}%
+\contentsline {subsubsection}{\numberline {2.4.2}Recurrent Neural Networks}{7}%
+\contentsline {subsubsection}{\numberline {2.4.3}Convolutional Neural Networks}{7}%
+\contentsline {subsubsection}{\numberline {2.4.4}Generative Adversarial Networks}{7}%
+\contentsline {subsection}{\numberline {2.5}International Phonetic Alphabet [1]}{8}%
+\contentsline {section}{\numberline {3}Related Work [8]}{8}%
+\contentsline {subsection}{\numberline {3.1}Prior Work on Accent Transfer [2]}{8}%
+\contentsline {subsection}{\numberline {3.2}Models Used [6]}{8}%
+\contentsline {subsubsection}{\numberline {3.2.1}Tacotron 2}{8}%
+\contentsline {subsubsection}{\numberline {3.2.2}WaveGlow}{9}%
+\contentsline {subsubsection}{\numberline {3.2.3}CycleGAN}{10}%
+\contentsline {subsubsection}{\numberline {3.2.4}MelGAN-VC}{11}%
+\contentsline {subsubsection}{\numberline {3.2.5}Allosaurus}{12}%
+\contentsline {section}{\numberline {4}Methods}{14}%
+\contentsline {subsection}{\numberline {4.1}Phonetic Continuous Representation-Based Speech Synthesis and Accent Transfer [3]}{14}%
+\contentsline {subsubsection}{\numberline {4.1.1}Phonetic Posteriorgrams}{14}%
+\contentsline {subsubsection}{\numberline {4.1.2}Speech Synthesis from PPGs [1]}{14}%
+\contentsline {subsubsection}{\numberline {4.1.3}Accent Transfer in PPG Space [2]}{15}%
+\contentsline {subsection}{\numberline {4.2}Phonetic Transcription-Based Speech Synthesis and Accent Transfer}{16}%
+\contentsline {subsubsection}{\numberline {4.2.1}Relational Mappings for Segmental Accent Transfer [1]}{16}%
+\contentsline {subsubsection}{\numberline {4.2.2}Segment-Based Speech Synthesis}{22}%
+\contentsline {section}{\numberline {5}Data}{22}%
+\contentsline {subsection}{\numberline {5.1}Speech Corpora}{22}%
+\contentsline {subsection}{\numberline {5.2}Mel Spectrograms}{23}%
+\contentsline {subsection}{\numberline {5.3}Phonetic Posteriorgrams}{24}%
+\contentsline {subsection}{\numberline {5.4}Transcriptions [1]}{25}%
+\contentsline {section}{\numberline {6}Results [4]}{28}%
+\contentsline {subsection}{\numberline {6.1}Continuous Representation-Based Speech Synthesis and Accent Transfer}{28}%
+\contentsline {subsection}{\numberline {6.2}Transcription-Based Speech Synthesis and Accent Transfer}{29}%
+\contentsline {section}{\numberline {7}Conclusions}{29}%

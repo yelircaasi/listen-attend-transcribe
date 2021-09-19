@@ -1,0 +1,27 @@
+The usefulness of pre-synthesis transformation of PPGs requires that there be a systematic difference between
+the PPGs of speaker A and speaker B. Empirically, this was not the case, as the loss of each classifier 
+converged around $0.69$ with only small and apparently random fluctuations even after hundreds of epochs. 
+This value is approximately the expected loss of binary cross entropy on random data,
+or $-\textrm{ln} \frac{1}{2} \approx 0.693147$. Thus, we can confidently conclude that there is no systematic 
+difference between the PPGs of Sanderson and Antonimuthu.
+
+While disappointing, this finding was not entirely uninteresting. It suggests that, at least at the 
+resolution of 40 phonemes, even speakers speaking the same language with starkly contrasting accents 
+will have their speech mapped into a common phonetic space, in which the respective phonetic representations 
+are indistinguishable.
+
+A further disappointing finding was that speech synthesis from 40-phone PPGs was not able to generate coherent 
+speech for the Sanderson and Antonimuthu corpora. Because Waveglow generated comprehensible speech from mel spectrograms, 
+this was clearly due to the generation of mel spectrograms from PPGs. This falsifies the original hypothesis that 
+high-quality speech synthesis from 40-phone PPGs is possible. 
+
+While the ``black box'' nature of neural networks makes it impossible at this point to draw conclusions about 
+the causes of this failure with any certainty, there are two factors that seem most likely. First, it may be 
+that the 40-phone PPGs simply do not carry sufficient information. As described above [XXX] succeeded in 
+generating high-quality speech from 5860-dimensional PPGs. The reduction by more than two orders of magnitude may 
+simply too large a reduction.
+
+Secondly, the nature of the data in the respective speech corpora is, despite the data cleaning process, 
+noisier and less uniform than standard corpora used in speech synthesis, such as LJSpeech. This is primarily 
+due to the spontaneous nature of the speech, which is is more difficult to re-create with a neural network 
+than speech read by a professional voice actor.

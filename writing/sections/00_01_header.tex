@@ -1,0 +1,65 @@
+\documentclass[12pt,leqno,a4paper]{article}
+
+
+\usepackage{natbib}
+\usepackage{epsfig}
+\usepackage{booktabs}
+\usepackage[paper=a4paper,left=3cm,right=3cm]{geometry}% http://ctan.org/pkg/geometry
+\usepackage[utf8]{inputenc} 
+\usepackage[english,german]{babel}
+\usepackage{dingbat}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage[extra]{tipa}
+\usepackage{dingbat}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% Minimalbeispiel für Diplom- oder Studienarbeit in Latex
+% OHNE GEWAEHR
+% Antje Schweitzer, Juli 2011 & Juli 2014 
+% folgende Dateien gehoeren zu diesem Beispiel:
+% - thesis.tex (der eigentliche Text)
+% - references.bib (die "Datenbank" mit den Literaturverweisen im Bibtex-Format)
+% - example.pdf (eine Beispielgrafik)
+% damit kann man dann nach der Anleitung unten folgendes Dokument erzeugen:
+% - thesis.pdf 
+
+% Minimal example for student papers in LaTeX, can be used as a template
+% without warranty
+% (English "translation" by Nils Reiter, July 2014)
+% You need multiple files for this example to work:
+% - thesis.tex (this file)
+% - references.bib (a BibTeX file containing the bibliographic entries)
+% - example.pdf (an example figure)
+
+% ANLEITUNG -- INSTRUCTIONS
+% To create a PDF, please run the following steps:
+% - pdflatex thesis.tex
+% - bibtex thesis
+% - pdflatex thesis.tex
+% - pdflatex thesis.tex
+% (yes, some steps need to be run multiple times, for reasons)
+
+% Antje Schweitzer, Oct. 2016 - updated statement of authorship
+% 
+% Antje Schweitzer, Dec 2020 
+% - updated translation of statement of authorship ;)
+% - made title fit into the window prescribed for Computer Science theses
+% please note that for the Computer Science students, the statements
+% have slightly different wordings and need to be on the last page
+% please check requirements by C.S. department in that case
+% (also no guarantee that the window is correct -
+% the version I compiled and printed does fit)
+% - changed to UTF-8 encoded .tex file, included inputenc utf8, 
+% so Umlauts can be typed as usual
+
+\renewcommand{\baselinestretch}{1.3}
+\parskip = \medskipamount
+\frenchspacing
+\bibpunct[; ]{(}{)}{;}{a}{,}{;}
+
+
+\newcommand{\Titel}{Phonetic Representations of Speech\\ 
+for Human Pronunciation Feedback and Automatic Accent Transfer}

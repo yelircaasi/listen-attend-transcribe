@@ -1,0 +1,52 @@
+In linguistics, the notion of accent refers to a pattern of pronunciation that does not change 
+the semantic content of what is uttered, but which may carry pragmatic meaning and 
+convey demographic information about the speaker. While some phonetic variation may be random 
+or occur at the individual level (idiolect), accent typically varies systematically according 
+to native language and dialect, which in turn vary geographically and demographically.
+
+Accent is occasionally an impediment to human understanding of speech; however, among native 
+and advanced speakers, accent is often no impediment to communication.
+In automatic speech recognition, accent accents underrepresented in training datasets 
+typically have a much stronger negative effect on recognition accuracy. For this reason, 
+accent is an active subject of research in automatic speech processing.
+%accent transfer and reduction
+%accent recognition
+%voice conversion and voice cloning
+
+Related to accent transfer is the task of voice conversion. The goal of voice conversion is to 
+generate speech containing identical linguistic information as an input sample, modifying only the 
+timbre to match a target speaker. In some respects, voice conversion is a simpler task; namely, 
+there is no temporal realignment and phonetic information remains the same. 
+The absence of temporal realignment means that voice conversion models have an equal number of frames 
+in input and output. This makes possible frame-to-frame mappings, also surrounding context must still 
+be taken into account in order to achieve good results.
+
+This works explores approaches to accent conversion with and without voice conversion. 
+These approaches may be referred respectively as intra-speaker accent conversion and cross-speaker 
+accent conversion.
+In intra-speaker accent conversion (henceforth simply \textit{accent conversion}), an utterance from the source speaker is modified to match the accent 
+of the target speaker, without changing voice quality or non-accent-carrying linguistic content. 
+By contrast, in cross-speaker accent conversion, accent conversion is combined with voice conversion. Henceforth, this will 
+simply be referred to as speaker conversion.
+
+This work investigates two distinct but related approaches to speech conversion, both accent conversion and 
+speaker conversion. The first is a continuous approach in which speech is mapped to and synthesized from a
+continuous phonetic representation. The second is a discrete approach, in which speech is transcribed to and 
+synthesized from the International Phonetic Alphabet (IPA).
+
+Clearly, in the simplest case, speaker conversion may involve the combination of ASR and TTS, where the ASR model 
+recognizes the speech of the source speaker and the TTS model synthesizes the speech of the target speaker from that same text.
+This work takes an alternative approach, in which speech is transcribed in the IPA, 
+modified by an intermediate model to match the phonetic patterns of the target speaker, and a TTS model trained 
+to synthesize speech from IPA is used to synthesize the desired speech.
+
+\begin{center}
+  \textbf{Summary and Comparison of Speech Conversion Tasks}\\~\\
+  \begin{tabular}{l|c|c|c}
+    %\caption{Intra-Speaker Accent Conversion}
+      Speech Aspect   & Accent Conversion & Voice Conversion & Speaker Conversion \\\hline
+      content         & source & source & source \\
+      accent          & \textbf{target} & \textbf{target} & source \\
+      vocal quality   & source & \textbf{target} & \textbf{target} \\
+    \end{tabular}
+  \end{center}

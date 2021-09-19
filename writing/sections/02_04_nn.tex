@@ -1,0 +1,35 @@
+\subsubsection{Feedforward Neural Networks}
+A feedforward neural network 
+
+\subsubsection{Recurrent Neural Networks}
+Feedforward neural networks are effective in processing vector inputs. If the input 
+data
+
+One powerful and popular architecture for recurrent neural networks is the long
+short-term memory (LSTM) network.
+
+\subsubsection{Convolutional Neural Networks}
+When input data have a spatial component, it is beneficial to use a network architecture 
+that can take advantage of spatial relationships in the data.
+
+\subsubsection{Generative Adversarial Networks}
+Operating within the parradigm of supervised learning, neural networks
+can be used for classification by learning a posterior distribution over 
+labels, given numerical features representing features of an input sample.
+%The model is trained by backpropagation, in which errors in classification 
+%are appropriately attributed to each of its parameters.
+Given sufficient exposure to labeled training data, an appropriately designed 
+model can update its parameters so as to assign an increasingly larger probability
+to the correct label.
+
+Another branch of machine learning involves generative learning. Given a training dataset,
+a generative model learns to output samples resembling those from the training dataset. 
+
+In ``vanilla'' generative adversarial networks (GANs), the are two networks whose training 
+takes the form of a minimax game, in which each model seeks to maximize the loss of the other.
+The first network is the generator, which is given random noise as input and tasked with 
+outputting samples of the same type as the target data. The second model is the discriminator,
+a classification network tasked with classifying generated samples as real or generated. 
+Throughout the (ideal) adversarial training process, the generator continually improves to 
+generate increasingly realistic outputs, and the discriminator becomes increasingly adept at 
+distinguishing real samples from generated samples.

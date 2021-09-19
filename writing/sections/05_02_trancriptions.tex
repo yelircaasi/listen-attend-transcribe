@@ -1,0 +1,168 @@
+The transcription process made use of a hybrid process. Analogously to the gain in speed reported in 
+machine-assisted translation, it is faster to correct automatically-generated transcriptions than it is to 
+manually create all transcriptions from scratch.
+
+First, transcriptions were generated automatically by the Python library Allosaurus. 
+These were only moderately accurate, and due to the nature of the Connectionist Temporal Classification 
+loss which which the model is trained, the output sequence cannot have 
+repeating tokens. Additionally, word boundaries were not included. This lack of word boundaries was 
+hypothesized to be disadvantageous for speech synthesis, especially because the standard Tacotron 2 model 
+input includes spaces and (standardized) punctuation.
+
+Because of this, transcriptions were corrected by hand. Word boundaries were added, denoted by the underscore 
+character (\texttt{\_}). Additionally, the removal of repeated phones in different words was corrected. 
+For example, the phrase ``\textit{that takes some more rice}'' would be transcribed as 
+\textipa{[D}
+\textipa{\ae}
+\textipa{t}
+\textipa{e}
+\textipa{k}
+\textipa{s}
+\textipa{2}
+\textipa{m}
+\textipa{o}
+\textipa{\*r}
+\textipa{a}
+\textipa{I}
+\textipa{s]}.
+Following the manual correction, the transcription would be 
+\textipa{[D}
+\textipa{\ae}
+\textipa{t}
+\textipa{\_}
+\textipa{t}
+\textipa{e}
+\textipa{k}
+\textipa{s}
+\textipa{\_}
+\textipa{s}
+\textipa{2}
+\textipa{m}
+\textipa{\_}
+\textipa{m}
+\textipa{o}
+\textipa{\*r}
+\textipa{\_}
+\textipa{\*r}
+\textipa{a}
+\textipa{I}
+\textipa{s]}.
+Intuitively, it appears clear that the second transcription contains more information that 
+would be relevant for IPA-to-speech synthesis.
+
+Because successful automatic synthesis requires many examples of each input token, for each speaker 
+the rarest IPA segments were removed and replaced with the best more common alternative, 
+leaving only those segments occurring at least 20 times in the fine-tuning set of 200 utterances.
+
+To improve the automatically-generated transcriptions, the pretrained models released by the authors 
+of XX were fine-tuned on 200 manually corrected transcriptions each. Subsequently, an additional XX 
+utterances were transcribed for each speaker, creating two datasets with XX utterances each.
+
+%a
+%æ
+%ɑ
+%b
+%d
+%ð
+%d͡ʒ
+%e
+%ə
+%ɛ
+%f
+%ɡ
+%h
+%i
+%ɪ
+%j
+%k
+%l
+%m
+%n
+%ŋ
+%o
+%ɔ
+%p
+%ɹ
+%ɹ̩
+%s
+%ʃ
+%t
+%t͡ʃ
+%u
+%ʊ
+%v
+%ʌ
+%w
+%z
+%ʒ
+%θ
+
+\newpage
+\begin{center}
+  \textbf{Phonetic Inventories}\\~\\
+  \begin{tabular}{llcc}
+    Phone               & Definition                           & Antonimuthu & Sanderson \\\hline
+    a                   & open front unrounded vowel           & \checkmark  & \checkmark \\
+    \ae                 & near-open front unrounded vowel      & \checkmark  & \checkmark \\
+    \textipa{A}         & open back unrounded vowel            & \checkmark  & \checkmark \\
+    \textipa{6}         & open back rounded vowel              & \checkmark  &            \\
+    b                   & voiced bilabial plosive              & \checkmark  & \checkmark \\
+    d                   & voiced alveolar plosive              & \checkmark  & \checkmark \\
+    \textipa{D}         & voiced dental fricative              & \checkmark  & \checkmark \\
+    \textdyoghlig       & voiced post-alveolar affricate       & \checkmark  & \checkmark \\
+    \textipa{\:d}       & voiced retroflex plosive             & \checkmark  &            \\
+    e                   & close-mid front unrounded vowel      & \checkmark  & \checkmark \\
+    \textipa{@}         & mid central vowel (schwa)            & \checkmark  & \checkmark \\
+    \textipa{E}         & open-mid front unrounded vowel       & \checkmark  & \checkmark \\
+    f                   & voiceless labiodental fricative      & \checkmark  & \checkmark \\
+    g                   & voiced velar stop                    & \checkmark  & \checkmark \\
+    h                   & voiceless glottal fricative          & \checkmark  & \checkmark \\
+    i                   & close front unrounded vowel          & \checkmark  & \checkmark \\
+    \textipa{I}         & near-close front unrounded vowel     & \checkmark  & \checkmark \\
+    \textipa{1}         & close central unrounded vowel        & \checkmark  &            \\
+    j                   & voiced palatal approximant (yod)     & \checkmark  & \checkmark \\
+    \textipa{J}         & voiced palatal fricative             & \checkmark  &            \\
+    \textbardotlessj    & voiced palatal plosive               & \checkmark  &            \\
+    k                   & voiceless velar plosive              & \checkmark  & \checkmark \\
+    \textipa{k\super h} & aspirated voiceless velar plosive    & \checkmark  &            \\
+    l                   & voiced alveolar lateral approximant  & \checkmark  & \checkmark \\
+    \textipa{\|[l}      & voiced dental approximant            & \checkmark  &            \\
+    m                   & voiced bilabial nasal                & \checkmark  & \checkmark \\
+    
+    
+  \end{tabular}
+\end{center}
+\newpage
+\begin{center}
+  \textbf{Phonetic Inventories (cont.)}\\~\\
+  \begin{tabular}{llcc}
+    Phone               & Definition & Antonimuthu                  & Sanderson \\\hline
+    n                   & voiced alveolar nasal                     & \checkmark & \checkmark \\
+    \textipa{\:n}       & voiced retroflex nasal                    & \checkmark & \\
+    \textipa{N}         & voiced velar nasal                        & \checkmark & \\
+    o                   & close-mid back rounded vowel              & \checkmark & \checkmark \\
+    \textipa{O}         & open-mid back rounded vowel               & \checkmark & \checkmark \\
+    p                   & voiceless bilabial plosive                & \checkmark & \checkmark \\
+    r                   & voiced alveolar trill                     & \checkmark & \\
+    \textipa{\*r}       & voiced alveolar approximant               &            & \checkmark \\
+    \textipa{\s{\*r}}   & syllabic voiced alveolar approximant      & \checkmark & \\
+    \textipa{R}         & voiced alveolar tap/flap                  & \checkmark & \\
+    s                   & voiceless alveolar fricative              & \checkmark & \checkmark \\
+    \textipa{\:s}       & voiceless retroflex fricative             & \checkmark & \\
+    \textipa{S}         & voiceless postalveolar fricative          & \checkmark & \checkmark \\
+    t                   & voiceless alveolar plosive                & \checkmark & \checkmark \\
+    \textipa{t\super h} & aspirated voiceless alveolar plosive      & \checkmark & \\
+    \textteshlig        & voiceless palato-alveolar affricate       & \checkmark & \checkmark \\
+    \textipa{\:t}       & voiceless retroflex plosive               & \checkmark & \\
+    u                   & close back rounded vowel                  & \checkmark & \checkmark \\
+    \textipa{U}         & near-close back rounded vowel             & \checkmark & \checkmark \\
+    v                   & voiced labiodental fricative              & \checkmark & \checkmark \\
+    \textipa{2}         & open-mid back unrounded vowel             & \checkmark & \checkmark \\
+    w                   & voiced labial-velar approximant           & \checkmark & \checkmark \\ 
+    x                   & voiceless velar fricative                 & \checkmark & \\ 
+    z                   & voiced alveolar fricative                 & \checkmark & \checkmark \\ 
+    \textipa{\:z}       & voiced retroflex sibilant fricative       & \checkmark & \checkmark \\ 
+    \textipa{Z}         & voiced postalveolar fricative             &            & \checkmark \\
+    \textipa{T}         & voiceless dental (non-sibilant) fricative &            & \checkmark \\
+  \end{tabular}
+\end{center}

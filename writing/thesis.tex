@@ -1,273 +1,42 @@
-\documentclass[12pt,leqno,a4paper]{article}
-% Minimalbeispiel für Diplom- oder Studienarbeit in Latex
-% OHNE GEWAEHR
-% Antje Schweitzer, Juli 2011 & Juli 2014 
-% folgende Dateien gehoeren zu diesem Beispiel:
-% - thesis.tex (der eigentliche Text)
-% - references.bib (die "Datenbank" mit den Literaturverweisen im Bibtex-Format)
-% - example.pdf (eine Beispielgrafik)
-% damit kann man dann nach der Anleitung unten folgendes Dokument erzeugen:
-% - thesis.pdf 
-
-% Minimal example for student papers in LaTeX, can be used as a template
-% without warranty
-% (English "translation" by Nils Reiter, July 2014)
-% You need multiple files for this example to work:
-% - thesis.tex (this file)
-% - references.bib (a BibTeX file containing the bibliographic entries)
-% - example.pdf (an example figure)
-
-% ANLEITUNG -- INSTRUCTIONS
-% To create a PDF, please run the following steps:
-% - pdflatex thesis.tex
-% - bibtex thesis
-% - pdflatex thesis.tex
-% - pdflatex thesis.tex
-% (yes, some steps need to be run multiple times, for reasons)
-
-% Antje Schweitzer, Oct. 2016 - updated statement of authorship
-% 
-% Antje Schweitzer, Dec 2020 
-% - updated translation of statement of authorship ;)
-% - made title fit into the window prescribed for Computer Science theses
-% please note that for the Computer Science students, the statements
-% have slightly different wordings and need to be on the last page
-% please check requirements by C.S. department in that case
-% (also no guarantee that the window is correct -
-% the version I compiled and printed does fit)
-% - changed to UTF-8 encoded .tex file, included inputenc utf8, 
-% so Umlauts can be typed as usual
-
-\usepackage{natbib}
-\usepackage{epsfig}
-\usepackage{booktabs}
-\usepackage[paper=a4paper,left=3cm,right=3cm]{geometry}% http://ctan.org/pkg/geometry
-\usepackage[utf8]{inputenc} 
-\usepackage[english,german]{babel}
-\usepackage{dingbat}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{float}
-\usepackage{tipa}
-
-\renewcommand{\baselinestretch}{1.3}
-\parskip = \medskipamount
-\frenchspacing
-\bibpunct[; ]{(}{)}{;}{a}{,}{;}
-
-
-\newcommand{\Titel}{Phonetic Representations of Speech\\ 
-for Human Pronunciation Feedback and Automatic Accent Transfer}
-
-
+\input{sections/00_01_header.tex}
 \begin{document}
-
-% larger left margin for title page to get it centered into C.S. template
-
-\begin{titlepage}
-  % different margin so titlepage fits into template
-  \newgeometry{left=3.5cm,right=2cm}
-  \large
-   \begin{center}
-    Institut für Maschinelle Sprachverarbeitung\\
-    Universität Stuttgart\\
-    Pfaffenwaldring 5B\\
-    D-70569 Stuttgart\\    
-    
-    \vspace{2.5cm}
-    Master thesis\\
-   % \vfill
-    {\LARGE \bf \Titel} \\
-    \vspace{2cm}
-    Isaac Riley\\
-       \vfill
-    \begin{tabular}[t]{lr}
-    Studiengang: & M.Sc. Computational Linguistics \\ % oder: B.Sc. Maschinelle Sprachverarbeitung, M.Sc. Informatik, ...\\
-    \\
-    \\
-    {Prüfer*innen:} & Prof. Dr. Wolfgang Wokurek\\
-     & Prof. Dr. Antje Schweitzer\\
-    {Betreuer:} & Prof. Dr. Wolfgang Wokurek\\ 
-    \\
-    \\
-    {Beginn der Arbeit:} & 01.04.2021\\
-    {Ende der Arbeit:} & 01.10.2021\\
-    \end{tabular}
-  \end{center}
-\setlength{\hoffset}{0cm}
-
-  \normalsize
-\end{titlepage}
-
-% back to original geometry
-\newgeometry{left=3cm,right=3cm}
-
-\newpage
-\thispagestyle{empty}
-
-
-% note that for Computer Science theses (not Maschinelle Sprachverarbeitung or Computational Linguistics)
-% this statement has a different wording and needs to be on the last rather than the first page. 
-% Please adapt accordingly. 
-\begin{otherlanguage}
-{german}
-\noindent\textbf{Erklärung (Statement of Authorship)}\\
-
-
-\noindent Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst habe und dabei keine andere als die angegebene Literatur verwendet habe. Alle Zitate und sinngemäßen Entlehnungen sind als solche unter genauer Angabe der Quelle gekennzeichnet. Die eingereichte Arbeit ist weder vollständig noch in wesentlichen Teilen Gegenstand eines anderen Prüfungsverfahrens gewesen. Sie ist weder vollständig noch in Teilen bereits veröffentlicht. Die beigefügte elektronische Version stimmt mit dem Druckexemplar überein.%% delete the following for theses in German; 
-%% delete or keep for English theses. 
-%% The German version above must be retained 
-%% and signed even if the thesis is written
-%% in another language than German.
-\end{otherlanguage}
-\footnote{Non-binding translation for convenience: This thesis is the result of my own independent work, and any material from work of others which is used either verbatim or indirectly in the text is credited to the author including details about the exact source in the text. This work has not been part of any other previous examination, neither completely nor in parts. It has neither completely nor partially been published before. The submitted electronic version is identical to this print version.}\\[2cm]
-\vspace{2cm}
-(Isaac Riley)
-
-\newpage
-\thispagestyle{empty}
-\noindent \textbf{Acknowledgments}\\
-\noindent XXX
-
-\newpage
-\tableofcontents
-\newpage
-
-\section{Introduction}
-In linguistics, the notion of accent refers to a pattern of pronunciation that does not change 
-the semantic content of what is uttered, but which may carry pragmatic meaning and 
-convey demographic information about the speaker. While some phonetic variation may be random 
-or occur at the individual level (idiolect), accent typically varies systematically according 
-to native language and dialect, which in turn vary geographically and demographically.
-
-Accent is not usually an impediment to human understanding of speech; this is especially true 
-among native speakers. In automatic speech recognition, non-standard accent typically has a much 
-stronger negative effect on recognition accuracy. For this reason, accent is an active subject of 
-research in automatic speech processing.
-%accent transfer and reduction
-%accent recognition
-%voice conversion and voice cloning
-
-Related to accent transfer is the task of voice conversion. The goal of voice conversion is to 
-generate speech containing identical linguistic information as an input sample, modifying only the 
-timbre to match a target speaker.
-
-\section{Background}
-\subsection{Automatic Speech Recognition}
-Automatic speech recognition 
-\subsection{Text-to-Speech Synthesis}
-
-\subsection{Speech Signal Processing}
-\subsubsection{Short-Time Fourier Transform}
-%https://www.youtube.com/watch?v=UKHBWzoOKsY
-
-\subsubsection{Mel Spectrum and Coefficients}
-%https://en.wikipedia.org/wiki/Mel-frequency_cepstrum
-%https://en.wikipedia.org/wiki/Mel_scale
-%http://practicalcryptography.com/miscellaneous/machine-learning/guide-mel-frequency-cepstral-coefficients-mfccs/
-%https://medium.com/analytics-vidhya/understanding-the-mel-spectrogram-fca2afa2ce53
-%https://towardsdatascience.com/getting-to-know-the-mel-spectrogram-31bca3e2d9d0
-%https://de.wikipedia.org/wiki/Mel_Frequency_Cepstral_Coefficients
-\subsubsection{}
-\subsubsection{}
-
-\subsection{Neural Networks}
-\subsubsection{Feedforward Neural Networks}
-A feedforward neural network 
-
-\subsubsection{Recurrent Neural Networks}
-Feedforward neural networks are effective in processing vector inputs. If the input 
-data
-
-One powerful and popular architecture for recurrent neural networks is the long
-short-term memory (LSTM) network.
-
-\subsubsection{Convolutional Neural Networks}
-When input data have a spatial component, it is beneficial to use a network architecture 
-that 
-
-\subsubsection{Generative Adversarial Networks}
-Operating within the parradigm of supervised learning, neural networks
-can be used for classification by learning a posterior distribution over 
-labels, given numerical features representing features of an input sample.
-%The model is trained by backpropagation, in which errors in classification 
-%are appropriately attributed to each of its parameters.
-Given sufficient exposure to labeled training data, an appropriately designed 
-model can update its parameters so as to assign an increasingly larger probability
-to the correct label.
-
-Another branch of machine learning involves generative learning. Given a training dataset,
-a generative model learns to output samples resembling those from the training dataset. 
-
-In ``vanilla'' generative adversarial networks (GANs), the are two networks whose training 
-takes the form of a minimax game, in which each model seeks to maximize the loss of the other.
-The first network is the generator, which is given random noise as input and tasked with 
-outputting samples of the same type as the target data. The second model is the discriminator,
-a classification network tasked with classifying generated samples as real or generated. 
-Throughout the (ideal) adversarial training process, the generator 
-
-\section{Related Work}
-\subsection{Models Used}
-\subsubsection{Tacotron 2}
-Tacotron 2 is a deep neural sequence-to-sequence model that generates mel spectrograms from text. 
-I can be combined with a deep neural vocoder, it forms an end-to-end text-to-speech system.
-\subsubsection{WaveGlow}
-WaveGlow is a deep neural flow-based vocoder that generates waveform audio from mel spectrograms.
-\subsubsection{Allosaurus}
-
-\subsubsection{CycleGAN}
-In `vanilla' GANs, the input is typically random noise, which is mapped to some point in the target distribution. 
-CycleGAN
-
-\subsubsection{SeqGAN}
-
-
-
-\section{Resources}
-
-\newpage
-\section{Methods}
-
-\subsection{Phonetic Representation-Based Speech Synthesis and Accent Transfer}
-%\input{phonetic_model_architecture.tex}
-\input{acoustic_model.tex}
-
-\subsubsection{Speech Synthesis from Phonetic Representations}
-\input{vocoder_model_architecture}
-
-\subsubsection{Accent Transfer in Phonetic Representation Space}
-\input{gan_model_architecture}
-
-\subsection{Phonetic Transcription-Based Speech Synthesis and Accent Transfer}
-\subsubsection{Transcription}
-
-
-\subsubsection{Rule-Based Segmental Accent Transfer}
-Because accents tend to be characterized by a number of salient features differing
-from the `standard' dialect or simply from other dialects, it is possible to formulate
-mapping rules that define which phonetic changes must be made to a source accent to make it sound
-more like a target accent. For example, a speaker of Received Pronunciation English wishing 
-to imitate a speaker of American English will typically pronounced syllable-final ``\textit{r}'' 
-as [\textipa{\*r}] and will voice intervocalic occurrences of ``\textit{t}''. An American English 
-speaker wishing to imitate RP English might apply the inverse of these rules. 
-
-The following section seeks to investigate and formalize approaches to learning 
-phonetic transformation rules from non-parallel data.
-
-\subsubsection{GAN-Based Segmental Accent Transfer}
-
-\section{Results}
-
-
-\section{Conclusions}
-
-
-%%%%%%%%%%%%%
-% Bibliographie
+\input{sections/00_02_title.tex}
+\section{Introduction [4]}
+  \input{sections/01_intro}
+\section{Background [9]}
+    \subsection{Automatic Speech Recognition [2]}
+        \input{sections/02_01_asr.tex}
+    \subsection{Text-to-Speech Synthesis [1.5]}
+        \input{sections/02_02_tts.tex}
+    \subsection{Speech Signal Processing [1.5]}
+        \input{sections/02_03_sp.tex}
+    \subsection{Neural Networks [3]}
+        \input{sections/02_04_nn.tex}
+    \subsection{International Phonetic Alphabet [1]}
+        \input{sections/02_05_ipa.tex}
+\section{Related Work [8]}
+    \subsection{Prior Work on Accent Transfer [2]}
+        \input{sections/03_01_prior_work.tex}
+    \subsection{Models Used [6]}
+        \input{sections/03_02_models_used}
+        \newpage
+\section{Methods} % [8]
+    \subsection{Phonetic Continuous Representation-Based Speech Synthesis and Accent Transfer [3]}
+        \input{sections/04_01_continuous.tex}
+    \subsection{Phonetic Transcription-Based Speech Synthesis and Accent Transfer}
+        \input{sections/04_02_transcr_based.tex}
+\section{Data} % [4]
+    \subsection{Speech Corpora}
+        \input{sections/05_01_corpora.tex}
+    \subsection{Transcriptions [1]}
+        \input{sections/05_02_trancriptions.tex}
+\section{Results [4]} % [4]
+    \subsection{Continuous Representation-Based Speech Synthesis and Accent Transfer}
+        \input{sections/06_01_continuous_results.tex}
+    \subsection{Transcription-Based Speech Synthesis and Accent Transfer}
+        \input{sections/06_02_transcription_results.tex}
+\section{Conclusions} % [3]
+        \input{sections/07_conclusion.tex}
 \bibliographystyle{plainnat}
 \bibliography{references}
-
-
-
 \end{document}
- 

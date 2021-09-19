@@ -1,0 +1,221 @@
+\subsubsection{Relational Mappings for Segmental Accent Transfer [1]}
+Because accents tend to be characterized by a number of salient features differing
+from the `standard' dialect or simply from other dialects, it is possible to formulate
+mapping rules that define which phonetic changes must be made to a source accent to make it sound
+more like a target accent. For example, a speaker of Received Pronunciation English wishing 
+to imitate a speaker of American English will typically pronounced syllable-final ``\textit{r}'' 
+as [\textipa{\*r}] and will voice intervocalic occurrences of ``\textit{t}''. An American English 
+speaker wishing to imitate RP English might apply the inverse of these rules. 
+
+The following section seeks to investigate and formalize approaches to learning 
+phonetic transformation rules from non-parallel data.
+
+A phonetic sequence consists of a number of IPA segments $s_i$:
+$$S^{(n)} = \left<\textrm{start}\right>, s^{(n)}_1, s^{(n)}_2, ... s^{(n)}_{L}, \left<\textrm{stop}\right>$$
+
+Given the data, it is straightforward to calculate the empirical conditional probabilities. The probability 
+that segment $s_j$ follows segment $s_i$ is calculated as follows:
+$$\hat{p}(s_j | s_i) = \frac{c_{ij}+1}{c_i}$$
+where $c_{ij}$ represents the corpus frequency of the bigram $s_i$ $s_j$ and $c_i$ represents the corpus 
+frequency of $s_i$. This is analogous to a simple language model with smoothing, but it would be more accurate 
+to refer to the full set of conditional probabilities as a phonetic model. 
+
+Another necessary component is a matrix of segment similarities. This can be written as
+$$A = [a_{ij}]$$
+where
+$$a_{ij} = \textrm{sim}(s_i, s_j) = \frac
+{\textbf{f}_i \cdot \textbf{f}_j + 1}
+{||\textbf{f}_i|| \hphantom{.} ||\textbf{f}_j||},$$
+i.e. each element of this matrix represent the smoothed cosine similarity product of the appropriate 
+articulatory feature vectors. 
+For the special characters \_ (word boundary), $\left<\textrm{start}\right>$, and $\left<\textrm{stop}\right>$, define self-similarity 
+sim$(x, x) = 1000$, since each of these characters will invariably be mapped to itself.
+
+
+The following table lists and describes the articulatory features considered.
+
+
+\newpage
+\begin{center}
+  \textbf{Articulatory Features}\\~\\
+  \begin{tabular}{llc}
+    Feature             & Relevant Segments \\\hline
+    voiced              & a, b, etc. \\
+    voiceless           & f, h, etc. \\
+    vowel               & a, \ae, etc. \\
+    approximant         & l, \textipa{\|[l}, \textipa{\*r}, \textipa{\s{\*r}}, w \\
+    consonant	          & b, d, \textipa{D}, etc. \\
+    front vowel         & a, \ae \\
+    central vowel       & \textipa{@}, \textipa{1} \\
+    back vowel          & \textipa{A}, \textipa{6}, o, \textipa{O}, u, \textipa{U}, \textipa{2} \\
+    open vowel          & a, \ae, \textipa{A}, \textipa{6}, \textipa{E}, \textipa{O}, \textipa{2} \\
+    mid vowel           & e, \textipa{@}, \textipa{E}, o, \textipa{O}, \textipa{2} \\
+    close vowel         & e, i, \textipa{I}, \textipa{1}, o, u, \textipa{U} \\
+    unrounded vowel     & a, \ae, \textipa{A}, e, \textipa{E}, i, \textipa{I}, \textipa{1}, \textipa{2} \\
+    rounded vowel       & \textipa{6}, o, \textipa{O}, u, \textipa{U} \\
+    bilabial            & b, m, p, w \\
+    labiodental         & f, v, w \\
+    dental              & \textipa{D}, \textipa{\|[l}, \textipa{T} \\
+    alveolar            & d, \textdyoghlig, l, n, \textipa{\*r}, \textipa{\s{\*r}}, \textipa{R}, 
+                        s, \textipa{S}, t, \textipa{t\super h}, \textteshlig \\
+    postalveolar        & \textipa{S}, \textipa{Z} \\
+    retroflex           & \textipa{\:d}, \textipa{\:n}, \textipa{\:s}, \textipa{\:t}, \textipa{\:z} \\
+    palatal             & j, \textipa{J}, \textbardotlessj \\
+    velar               & g, k, \textipa{k\super h}, \textipa{N}, x \\
+    uvular              & none \\
+    pharyngeal          & none \\
+    glottal             & h \\
+  \end{tabular}
+
+  \newpage
+  \textbf{Articulatory Features (cont.)}\\~\\
+  \begin{tabular}{llc}
+    Feature             & Relevant Segments \\\hline    
+    plosive             & b, d, \textipa{\:d}, \textbardotlessj, k, \textipa{k\super h}, 
+                          p, t, \textipa{t\super h}, \textipa{\:t} \\
+    nasal               & m, n, \textipa{\:n}, \textipa{N} \\
+    trill               & r \\
+    tap/flap            & \textipa{R} \\
+    fricative           & \textipa{D}, f, h, \textipa{J}, s, \textipa{\:s}, \textipa{S}, 
+                          v, x, z, \textipa{\:z}, \textipa{Z}   \\
+    lateral             & l, \textipa{\|[l} \\
+    affricate           & \textdyoghlig, \textteshlig \\
+    rhotic              & r, \textipa{\*r}, \textipa{\s{\*r}}, \textipa{R} \\
+  \end{tabular}
+\end{center}
+
+
+The core problem of segmental accent transfer is to learn a set of segmental mapping rules. 
+In the simplest case, such a mapping is injective.%; in practice, however, this is not the case. 
+When an injective mapping is assumed, the mapping can be defined as follows:
+$$f_1(s^{(n)}_i) = t^{(n)}_i = \arg\max_{t_j}  \alpha \cdot p(t_j|t_{j-1}) + 
+ \textrm{sim}(t_j, s^{(n)}_i).$$
+Here $\alpha$ controls the weighting of the target phonetic model 
+relative to similarity between source and target segments.
+It is to be chosen empirically.
+
+Equivalently, in pseudocode notation:
+\begin{algorithm}[H]
+  \caption{Injective Mapping}
+    \begin{algorithmic}
+    \State \textbf{input}: list $S$, function sim$()$, phone model $p$, target phone inventory $I$, $\alpha \in [0,1]$
+    \State \textbf{output}: list $T$
+    \State $i\gets 1$
+    %\State $j\gets 1$
+    \State $T[0] \gets \left<\textrm{start}\right>$
+    \State $N\gets $ length$(S)$
+    %\State target$\gets \[\]$
+    \While {$i < N$}
+        \State best $= 0$
+        \For {phone in $I$}
+          \State score $=\alpha * p(\textrm{phone}\,|\,T[i-1]) + \textrm{sim}(\textrm{phone}|S[i])$
+          \If {score $>$ best}
+            \State best $\gets$ score
+            \State phone$^* \gets$ phone
+          \EndIf
+        \EndFor
+        \State $T[i] \gets $ phone$^*$
+        \State $i\gets i+1$
+    \EndWhile
+    \State $T[i] \gets \left<\textrm{stop}\right>$
+  \end{algorithmic}
+  \end{algorithm}
+Note that this belongs to the family of greedy search algorithms.
+
+\iffalse
+The first enhancement is to use bidirectional conditioning:
+$$f_2(s^{(n)}_i) = t^{(n)}_i = \arg \max_{t_l \in T}  \alpha \cdot p(t_l|t_{l-1}) + 
+\beta \cdot p(t_l|t_{l+1}) + 
+\textrm{sim}(t_l, s^{(n)}_i).$$
+This bidirectional approach is more robust to cases where the true mapping is non-injective,
+but the function to be learned is injective. 
+\fi
+
+However, it may be desirable to increase flexibility by allowing one-to-two and two-to-one mappings.
+To accomplish this, it is necessary to add to the target character set the empty string. 
+As in the formal language theory literature, the character ``$\epsilon$'' will denote 
+the empty string.
+To allow 2-to-1 mappings, define 
+$$\textrm{sim}(\epsilon, s) := \bar{a} = \frac{\sum_{i=1}^N \sum_{j=1}^N a_{ij}}{N^2} 
+\hphantom{..} \forall s \in S: s \neq \epsilon$$
+and $$\textrm{sim}(\epsilon, \epsilon) = 1$$
+
+
+\iffalse
+Define the $\epsilon$-padded sequence as follows:
+$$S^{(n)}_\epsilon = \left<\textrm{start}\right>, \epsilon, s^{(n)}_1, \epsilon, s^{(n)}_2, \epsilon, 
+s^{(n)}_3, \epsilon, ..., \epsilon, s^{(n)}_{L}, \epsilon, \left<\textrm{stop}\right>$$
+Moreover, define sim$(\epsilon_i, s_j) := \textrm{sim}(s_{i-1}, s_j) \hphantom{.} \forall s_j \neq \epsilon$ and $\textrm{sim}(\epsilon, \epsilon) = 1$.
+\fi
+
+To allow for more general alignments, 
+\iffalse
+we define a mapping $r_1$ similarly to $f_1$, the key difference being that 
+1-to-2 alignments are possible in both directions.
+$$f_2(s^{(n)}_i) = t^{(n)}_k = \arg \max_{t_l \in T} \left[ 
+  \alpha \cdot p(t_l|t_{l-1}) + 
+%\beta \cdot p(t_l|t_{l+1}) + 
+\max_{t_l} \left\{ \textrm{sim}(t_l, s^{(n)}_i), \textrm{sim}(t_l, s^{(n)}_{i-1}) \right\}
+\right].$$
+\fi
+we define a more flexible algorithm as follows:
+\begin{algorithm}[H]
+  \caption{Bigram-Compatible Mapping}
+    \begin{algorithmic}
+    \State \textbf{input}: list $S$, function sim$()$, phone model $p$, target phone inventory $I$, $\alpha \in [0,1]$
+    \State \textbf{output}: list $T$
+    \State $i\gets 1$
+    %\State $j\gets 1$
+    \State $T[0] \gets \left<\textrm{start}\right>$
+    \State $N\gets $ length$(S)$
+    %\State target$\gets \[\]$
+    \While {$i < N$}
+        \State best $= 0$
+        \For {phone in $I$}
+          \State score1 $=\alpha * p(\textrm{phone}\,|\,T[i-1]) + \textrm{sim}(\textrm{phone}|S[i])$ %\Comment score block 1
+          \If {score1 $>$ best}
+            \State best $\gets$ score1
+            \State phone$^* \gets$ phone
+            \State $i \gets i+1$
+            \State outcome $\gets 1$
+          \EndIf
+          \State score2 $=\alpha * p(\textrm{phone}\,|\,T[i-1]) + \textrm{sim}(\textrm{phone}|S[i-1])$ %\Comment score block 2
+          \If {score2 $>$ best}
+            \State best $\gets$ score2
+            \State phone$^* \gets$ phone
+            \State outcome $\gets 2$
+          \EndIf
+          \State score3 $=\alpha * p(\textrm{phone}\,|\,T[i-1]) + \textrm{sim}(\textrm{phone}|S[i+1])$ %\Comment score block 2
+          \If {score3 $>$ best}
+            \State best $\gets$ score3
+            \State phone$^* \gets$ phone
+            \State outcome $\gets 3$
+          \EndIf
+        \EndFor
+        \If {outcome $<3$}
+          \State $T[j] \gets $ phone$^*$
+          \State $j\gets j+1$
+          
+        \EndIf
+    \EndWhile
+    \State $T[i] \gets \left<\textrm{stop}\right>$
+  \end{algorithmic}
+  \end{algorithm}
+Note that the modifications relative to Algorithm 1 allow for both 1:2 and 2:1 mappings. For example, if 
+in the relation $R$ it is the case that $s_{i-1} r t_{j-1}$, it is possible at alignment step $(i, j)$ 
+to have 
+
+$\begin{array}{lll}
+  a) & s_{i-1} R t_{j-1}, s_i R t_j & (\textrm{outcome} 1) \\
+  b) & s_{i-1} R t_{j-1}, s_{i-1} R t_j & (\textrm{outcome} 2) \\
+  c) & s_{i-1} R t_{j-1}, s_i R t_{j-1} & (\textrm{outcome} 3)
+\end{array}$
+
+Thus, it is possible to model systematic insertions and deletions, without increasing computational 
+complexity, which remains $\mathcal{O}(n)$.
+
+\subsubsection{Segment-Based Speech Synthesis}
+Once again, a modified version of Tacotron2 is used to generate mel spectrograms, 
+and Waveglow is used for waveform generation. The input encoding is different from the classic 
+English speech synthesis implementation, but otherwise no modifications were required.
+%\subsubsection{GAN-Based Segmental Accent Transfer [2]}
