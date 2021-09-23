@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.7.27)  19 SEP 2021 23:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.7.27)  23 SEP 2021 04:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -388,8 +388,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 40--41
 
 [1
 
-] [2] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.toc [3]
-Overfull \hbox (3.3112pt too wide) in paragraph at lines 41--41
+]
+Underfull \hbox (badness 10000) in paragraph at lines 55--68
+
+ []
+
+[2] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.toc [3]
+Overfull \hbox (3.3112pt too wide) in paragraph at lines 42--42
  [][] []\OT1/cmr/m/n/12 Continuous Representation-Based Speech Syn-the-sis and Ac-cent Trans- 
  []
 
@@ -397,31 +402,41 @@ Overfull \hbox (3.3112pt too wide) in paragraph at lines 41--41
 \tf@toc=\write3
 \openout3 = `thesis.toc'.
 
- [4]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/01_intro.tex [5]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_01_asr.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_02_tts.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_03_sp.tex [6]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_04_nn.tex [7]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_05_ipa.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/03_01_prior_work.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/03_02_models_used.tex [8]
-<img/img_waveglow.jpg, id=37, 384.6872pt x 295.85532pt>
-File: img/img_waveglow.jpg Graphic file (type jpg)
-<use img/img_waveglow.jpg>
-Package pdftex.def Info: img/img_waveglow.jpg  used on input line 21.
-(pdftex.def)             Requested size: 426.79134pt x 328.25882pt.
- [9] [10 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/img_waveglow.jpg>]
-<img/img_melganvc.png, id=44, 1065.9825pt x 552.0625pt>
+ [4]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/01_intro.tex [5]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/03_01_prior_work.tex [6] [7]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/03_02_models_used.tex [8] [9]
+<img/img_melganvc.png, id=40, 1065.9825pt x 552.0625pt>
 File: img/img_melganvc.png Graphic file (type png)
 <use img/img_melganvc.png>
 Package pdftex.def Info: img/img_melganvc.png  used on input line 52.
 (pdftex.def)             Requested size: 426.79135pt x 221.03168pt.
- [11 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/img_melganvc.png>]
-<img/img_alloraurus.png, id=49, 1169.36874pt x 953.5625pt>
+ [10 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/img_melganvc.png>]
+<img/img_alloraurus.png, id=45, 1169.36874pt x 953.5625pt>
 File: img/img_alloraurus.png Graphic file (type png)
 <use img/img_alloraurus.png>
 Package pdftex.def Info: img/img_alloraurus.png  used on input line 100.
 (pdftex.def)             Requested size: 199.16928pt x 162.40903pt.
- [12]) [13 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/img_alloraurus.png>]
-Overfull \hbox (2.65315pt too wide) in paragraph at lines 24--24
+) [11 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/img_alloraurus.png>] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_01_asr.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_02_tts.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_03_sp.tex [12]
+<img/img_spectrogram.png, id=59, 1658.195pt x 949.5475pt>
+File: img/img_spectrogram.png Graphic file (type png)
+<use img/img_spectrogram.png>
+Package pdftex.def Info: img/img_spectrogram.png  used on input line 24.
+(pdftex.def)             Requested size: 426.79135pt x 244.38443pt.
+
+Overfull \hbox (17.62482pt too wide) in paragraph at lines 24--25
+[][] 
+ []
+
+[13 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/img_spectrogram.png (PNG copy)>]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_04_nn.tex [14] [15] [16]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/02_05_ipa.tex [17])
+Overfull \hbox (36.93822pt too wide) in paragraph at lines 25--23
+[]\OT1/cmr/m/n/12 Vowels are clas-si-fied along three key di-men-si-ons: open-ness/closeness, back-ness/frontness,
+ []
+
+[18]
+Overfull \hbox (2.65315pt too wide) in paragraph at lines 25--25
 []\OT1/cmr/bx/n/14.4 Phonetic Con-ti-nuous Representation-Based Speech Syn-
  []
 
 (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/04_01_continuous.tex
-<img/img_ppg2mel.png, id=59, 528.97626pt x 431.6125pt>
+<img/img_ppg2mel.png, id=80, 528.97626pt x 431.6125pt>
 File: img/img_ppg2mel.png Graphic file (type png)
 <use img/img_ppg2mel.png>
 Package pdftex.def Info: img/img_ppg2mel.png  used on input line 26.
@@ -431,11 +446,11 @@ Overfull \hbox (17.6248pt too wide) in paragraph at lines 26--27
 [][] 
  []
 
-[14]) [15 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/img_ppg2mel.png>] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/04_02_transcr_based.tex [16] [17] [18] [19] [20]
+[19]) [20 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/img_ppg2mel.png>] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/04_02_transcr_based.tex [21] [22] [23] [24] [25]
 Overfull \vbox (65.13756pt too high) has occurred while \output is active []
 
- [21]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/05_01_corpora.tex [22] [23]
-<img/ppg_ant.png, id=101, 1040.88875pt x 168.63pt>
+ [26]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/05_01_corpora.tex [27] [28]
+<img/ppg_ant.png, id=117, 1040.88875pt x 168.63pt>
 File: img/ppg_ant.png Graphic file (type png)
 <use img/ppg_ant.png>
 Package pdftex.def Info: img/ppg_ant.png  used on input line 61.
@@ -445,7 +460,7 @@ Overfull \hbox (29.3747pt too wide) in paragraph at lines 59--62
 [] 
  []
 
-<img/ppg_san.png, id=102, 788.9475pt x 128.48pt>
+<img/ppg_san.png, id=118, 788.9475pt x 128.48pt>
 File: img/ppg_san.png Graphic file (type png)
 <use img/ppg_san.png>
 Package pdftex.def Info: img/ppg_san.png  used on input line 64.
@@ -455,29 +470,29 @@ Overfull \hbox (29.3747pt too wide) in paragraph at lines 62--65
 [] 
  []
 
-) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/05_02_trancriptions.tex [24 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/ppg_ant.png> </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/ppg_san.png>] [25]
+[29 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/ppg_ant.png>]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/05_02_trancriptions.tex [30 </home/isaac/Projects/Thesis/listen-attend-transcribe/writing/img/ppg_san.png>] [31]
 LaTeX Font Info:    Trying to load font information for U+dingbat on input line 105.
  (/usr/share/texlive/texmf-dist/tex/latex/dingbat/udingbat.fd
 File: udingbat.fd 2001/04/27 v1.00 Font definitions for the dingbat font
-) [26]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/06_01_continuous_results.tex [27]) [28]
-Overfull \hbox (5.69986pt too wide) in paragraph at lines 36--36
+) [32]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/06_01_continuous_results.tex [33]) [34]
+Overfull \hbox (5.69986pt too wide) in paragraph at lines 37--37
 []\OT1/cmr/bx/n/14.4 Transcription-Based Speech Syn-the-sis and Ac-cent Trans-
  []
 
-(/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/06_02_transcription_results.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/07_conclusion.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.bbl [29]) [30] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.aux) ) 
+(/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/06_02_transcription_results.tex) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/sections/07_conclusion.tex [35]) (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.bbl [36] [37]) [38] (/home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.aux) ) 
 Here is how much of TeX's memory you used:
- 5508 strings out of 481239
- 76859 string characters out of 5920377
- 331966 words of memory out of 5000000
- 20607 multiletter control sequences out of 15000+600000
+ 5574 strings out of 481239
+ 78023 string characters out of 5920377
+ 333041 words of memory out of 5000000
+ 20674 multiletter control sequences out of 15000+600000
  545154 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,11n,32p,703b,299s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,11n,32p,703b,358s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/niceframe-type1/dingbat.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/fkr/tipa/tipa12.pfb></usr/share/texmf/fonts/type1/fkr/tipa/tipa8.pfb>
-Output written on /home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.pdf (31 pages, 813673 bytes).
+Output written on /home/isaac/Projects/Thesis/listen-attend-transcribe/writing/thesis.pdf (39 pages, 1043260 bytes).
 PDF statistics:
- 185 PDF objects out of 1000 (max. 8388607)
- 123 compressed objects within 2 object streams
+ 212 PDF objects out of 1000 (max. 8388607)
+ 142 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

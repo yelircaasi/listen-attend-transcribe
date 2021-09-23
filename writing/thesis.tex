@@ -1,24 +1,25 @@
 \input{sections/00_01_header.tex}
 \begin{document}
 \input{sections/00_02_title.tex}
-\section{Introduction [4]}
+\section{Introduction} % 4
   \input{sections/01_intro}
-\section{Background [9]}
-    \subsection{Automatic Speech Recognition [2]}
+\section{Related Work} % [8]
+  \subsection{Prior Work on Accent Transfer} % 2
+      \input{sections/03_01_prior_work.tex}
+  \subsection{Relevant Models} % 6
+      \input{sections/03_02_models_used}
+      \newpage
+\section{Background} % 4
+    \subsection{Automatic Speech Recognition} % 2
         \input{sections/02_01_asr.tex}
-    \subsection{Text-to-Speech Synthesis [1.5]}
+    \subsection{Text-to-Speech Synthesis} % 1.5
         \input{sections/02_02_tts.tex}
-    \subsection{Speech Signal Processing [1.5]}
+    \subsection{Speech Signal Processing} % 1.5
         \input{sections/02_03_sp.tex}
-    \subsection{Neural Networks [3]}
+    \subsection{Neural Networks} % 2
         \input{sections/02_04_nn.tex}
-    \subsection{International Phonetic Alphabet [1]}
+    \subsection{Phonetics and the International Phonetic Alphabet} % 1
         \input{sections/02_05_ipa.tex}
-\section{Related Work [8]}
-    \subsection{Prior Work on Accent Transfer [2]}
-        \input{sections/03_01_prior_work.tex}
-    \subsection{Models Used [6]}
-        \input{sections/03_02_models_used}
         \newpage
 \section{Methods} % [8]
     \subsection{Phonetic Continuous Representation-Based Speech Synthesis and Accent Transfer [3]}
@@ -30,13 +31,14 @@
         \input{sections/05_01_corpora.tex}
     \subsection{Transcriptions [1]}
         \input{sections/05_02_trancriptions.tex}
-\section{Results [4]} % [4]
+\section{Results} % [4]
     \subsection{Continuous Representation-Based Speech Synthesis and Accent Transfer}
         \input{sections/06_01_continuous_results.tex}
     \subsection{Transcription-Based Speech Synthesis and Accent Transfer}
         \input{sections/06_02_transcription_results.tex}
 \section{Conclusions} % [3]
         \input{sections/07_conclusion.tex}
+{\selectlanguage{english}
 \bibliographystyle{plainnat}
-\bibliography{references}
+\bibliography{references}}
 \end{document}

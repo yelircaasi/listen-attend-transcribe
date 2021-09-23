@@ -17,12 +17,12 @@ autoregressive waveform generation model \citep{wavenet}. Its primary advantage 
 because it is non-autoregressive, it can generate audio much faster than WaveNet, and 25 times faster 
 than real time on a V100 GPU [XX].
 
-Its basic architecture is illustrated below:\\
-\includegraphics[width=15cm]{img/img_waveglow.jpg}
+%Its basic architecture is illustrated below:\\
+%\includegraphics[width=15cm]{img/img_waveglow.jpg}
 
-Note that much of the computational work is done repetitively, the convolutional and subsequent 
-affine coupling layer are repeated 12 times to generate the level of fine-grained detail 
-required in high-quality waveform.
+%Note that much of the computational work is done repetitively, the convolutional and subsequent 
+%affine coupling layer are repeated 12 times to generate the level of fine-grained detail 
+%required in high-quality waveform.
 
 
 \subsubsection{CycleGAN}
@@ -36,7 +36,7 @@ in which certain aspects of an image are altered while others remain intact. A s
 image translation is a model that transforms horses into zebras. In this case, a simple GAN may take 
 a horse image as input and output a very dissimilar zebra image as output; this is because there 
 is no constraint to enforce content preservation.
-CycleGAN \citep{} achieves this by training an inverse generator to map the transformed image back to the 
+CycleGAN \citep{cycleganvc} achieves this by training an inverse generator to map the transformed image back to the 
 original. This cyclical consistency constraint requires the forward generator to preserve semantic 
 content from the original image so that it the original can be reconstructed from the transformed image.
 
@@ -48,7 +48,7 @@ typically has the same shape as the output.
 
 In settings where the data has an intrinsically sequential nature and the input size varies, 
 it is not possible to require a fixed and shape. One such setting is voice conversion, and one 
-clever solution has been proposed by Marco Pasini in [XX], illustrated below:\\
+simple and effective solution has been proposed by Marco Pasini in [XX], illustrated below:\\
 \includegraphics[width=\textwidth]{img/img_melganvc.png}
 
 The key insight is that by taking a fixed length ($T$ frames) of the input spectrogram, 
@@ -81,11 +81,11 @@ because its gradient-based methods do not work for discrete-valued sequences. To
 XXX introduced SeqGAN, an adaptation of GANs to the setting of discrete-valued sequences.
 
 SeqGAN uses the REINFORCE algorithm for training. 
-
 \fi
+
 \subsubsection{Allosaurus}
 Allosaurus is a Python library containing tools for automatic neural phonetic transcriptions 
-using IPA.
+using IPA \Citep{allosaurus}.
 Released by a team of researchers at Carnegie Mellon University, it performs phone recognition, 
 rather than the more typical task of phoneme recognition, and its main innovation is its so-called 
 ``allophone layer''. This is a phone-to-phoneme mapping that restricts the phonetic invntory to 
@@ -99,6 +99,9 @@ These differences in architecture are shown below:
 \begin{center}
   \includegraphics[width=7cm]{img/img_alloraurus.png}
 \end{center}
+
+\cite{ctc}
+
 %http://www.scholarpedia.org/article/Policy_gradient_methods#Likelihood_Ratio_Methods_and_REINFORCE
 %http://www.scholarpedia.org/article/Policy_gradient_methods#Likelihood_Ratio_Methods_and_REINFORCE
 %https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html

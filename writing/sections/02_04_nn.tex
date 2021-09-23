@@ -1,16 +1,92 @@
-\subsubsection{Feedforward Neural Networks}
-A feedforward neural network 
+%According to a popular aphorism, ``two heads are better than one.'' 
+%One may suppose, inductively reasoning, that three heads are likewise better than two, 
+%and so on. It seems reasonable to suppose that, due to the principle of diminishing returns
+Neural networks are, most generally, a powerful application of the ensemble 
+approach to machine learning in which simple units (``nodes'') are joined together to learn 
+complex functions \citep{aggarwal}. Originally inspired by the structure of the human brain, 
+the degree to which this comparison is warranted remains controversial; nevertheless, 
+the terminology is still used today.
+
+At its core, a neural network consists of a series of linear and nonlinear operations 
+that may be combined in various ways. Like other machine learning algorithms, 
+an input is mapped to an output. However, a key advantage of neural networks is their ability 
+to learn features internally. 
+
+Training is performed by means of the backpropagation algorithm, which makes possible 
+the correct attribution of error to each parameter. The parameters are updated proportionally 
+to their contribution to the error.
+
+%\subsubsection{Feedforward Neural Networks}
+The simplest kind of neural network, the feedforward neural network (FFNN), consists of an 
+\textit{input layer}, zero or more \textit{hidden layers}, and an \textit{output layer}, 
+where each hidden layer and optionally the output layer is passed to a nonlinear activation 
+function such as $\sigma(x) = \dfrac{e^x}{1+e^x}$ or $\tanh(x) = \dfrac{e^x - e^{-x}}{e^x+e^{-x}}$. 
+The activation function makes it possible to learn complex functions, since without it 
+a feedforward neural network would always be equivalent to multiplication by a matrix.
 
 \subsubsection{Recurrent Neural Networks}
-Feedforward neural networks are effective in processing vector inputs. If the input 
-data
+Feedforward neural networks are effective in processing vector inputs. If the  
+data possess a sequential nature, a FFNN may struggle to learn the intertemporal 
+relationships. To solve this problem, the recurrent neural network was proposed, in which 
+at each time step, the network's output from that time step is passed as input to the network at 
+the current time step. Notationally, given an input vector $x$ at time $t$,
+$$h(x_t) = f(h_{t-1}, x_t; \theta)$$
+$$a_t = W^{(h \rightarrow h)} t_{t-1}+W^{(x \rightarrow h)} x_t + b$$
+$$h_t = \tanh(a_t)$$
+$$o_t = W^{(h \rightarrow o)}h_t + c$$
+%$$\hat{y}_t = \textrm{softmax}(o_t)$$
+%pg 385 of https://www.deeplearningbook.org/contents/rnn.html
+where $f$ is the function computed by the RNN \citep{dlbible}. It is important that the loop inherent 
+in the architecture of an RNN enables it to handle variable-length input well, which 
+is an invaluable property in language- and speech-based settings where input and 
+output length tend to vary.
 
 One powerful and popular architecture for recurrent neural networks is the long
-short-term memory (LSTM) network.
+short-term memory (LSTM) network \Citep{lstm1997}. One of the problems with simple RNNs is the difficulty 
+of modeling long-term dependencies, and more generally with learning which information 
+should be passed on (`remembered') and which information should be `forgotten'. To remedy 
+this, the LSTM adds a forget gate to regulate which information is passed on in the hidden 
+state. 
+$$f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)$$
+$$i_t = \sigma(W_i \cdot [h_{t-1}, x_t]+b_t)$$
+$$\tilde{C}_t = \tanh (W_C \cdot [h_{t-1}, x_t]+b_C)$$
+$$C_t = f_t * C_{t-1} + i_t * \tilde{C}_t$$
+$$o_t = \sigma (W_o [h_{t-1}, x_t]+b_o)$$
+$$h_t = o_t * \tanh (C_t)$$
+%https://colah.github.io/posts/2015-08-Understanding-LSTMs/
+The notation followed here is based on that of \cite{olah2015} and \cite{lstmtutorial}
+
+%https://medium.com/@jianqiangma/all-about-recurrent-neural-networks-9e5ae2936f6e
+
+\subsubsection{Sequence-to Sequence Architectures}
+A single RNN is well-suited to learning to classify an entire sequence or each 
+time step of a sequence; in these respective settings, output size is fixed or 
+equal to the input size. However, there are often settings in which input size and 
+output size may differ and each varies. In such cases, a sequence-to-sequence model 
+is used, in which two RNNs, often two LSTMs, are used.
+\citep{dlbible}
+
+\subsubsection{Attention Mechanism}
+While LSTMs represent a considerable improvement over vanilla RNNs for a variety of tasks, 
+they are far from perfect. 
+One difficulty is the inherent difficulty of learning what to remember and what to forget.
+State information must be contained in a fixed-length vector. 
+The attention mechanism circumvents this bottleneck by adding a sort of query mechanism 
+by which the decoder has access to all hidden states of the encoder and learns weights to 
+create a weighted sum, which is then used by the decoder to generate the output.
+This access to the entire input sequence allows the decoder to focus its `attention', 
+as it were, on the most relevant portions of the input, hence the name.
+This also brings the added benefit that the alignment between input and output 
+can be examined and visualized.
 
 \subsubsection{Convolutional Neural Networks}
 When input data have a spatial component, it is beneficial to use a network architecture 
-that can take advantage of spatial relationships in the data.
+that can take advantage of spatial relationships in the data. A convolutional neural network 
+does this by passing a $k \times l$-dimensional filter over the input. 
+This is equivalent to a fully-connected network in which a majority of weights are zero.
+The relative sparsity of convolutional network networks (CNNs) is one advantage; the primary 
+benefit is the ability, given multiple layers, to learn features that correspond to image 
+features at various levels of resolution.
 
 \subsubsection{Generative Adversarial Networks}
 Operating within the parradigm of supervised learning, neural networks

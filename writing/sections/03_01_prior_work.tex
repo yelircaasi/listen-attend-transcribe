@@ -1,0 +1,120 @@
+Much of the work in accent conversion has been focused on foreign accent conversion,
+in which a non-native accent is modified to more closely resemble a native accent.
+This has obvious practical applications, but is also important in automatic speech recognition,
+since the best-performing models are typically trained on high-resource accents.
+
+All approaches can be divided into parallel and non-parallel approaches, 
+as in the related setting of voice conversion.
+In parallel accent conversion, data is available which contain identical utterances from
+source and target speakers, which in non-parallel accent, the content of the utterance 
+need not coincide. There are many advantages inherent in parallel approaches, but 
+as parallel data is difficult to collect, it is often less practical. Non-parallel 
+data is abundant, but presents another set of challenges, namely the inability to 
+use supervised learning approaches. In other words, for a given source utterance, 
+there is no correspondending `label' indicating how that same utterance should sound
+following conversion. Thus, non-parallel approaches are forced to rely on 
+distribution-matching techniques.
+
+%voice morphing
+One simple approach is to combine the source and target utterance in some way. 
+While somewhat crude in some ways, and arguably not `pure' accent conversion as 
+defined above, it nevertheless succeeds in reducing perceived foreign accent. 
+However, the output contains characteristics of both the source and target utterance
+\citep{voicemorph}.
+
+
+%frame-pairing
+A non-parallel approach is to map frames in the respective utterances into a common phonetic 
+space using an aoustic model and then identify the frames of the target speaker that 
+are phonetically the most similar to the reference source frame, 
+using some similarity metric such as Kullback-Leibler divergence. 
+This is an elegant and efficient approach; however, it suffers from a number of drawbacks.
+It is unable to handle differences in length between source and desired target, e.g. when 
+a segment or sequence of segments typically occupies more frames in one speaker than another.
+It also constrains the target space to phones that are in fact realized by the target speaker, 
+which may result in partial accent conversion.
+Despite these limitations, frame pairing has achieved some success and is a good baseline 
+approach
+%Using phonetic posteriorgram based frame pairing for segmental accent conversion
+%Accent conversion using phonetic posteriorgrams
+\citep{framepairing,acppgzhao}.
+
+%articulatory synthesis
+The third of the popular parallel approaches involves measurements from an electromagnetic 
+articulograph. These are mapped to articulatory features, typically including MFCCs, using a GMM.
+The acoustic features are then normalized and provided as input to a appropriate vocoder such as STRAIGHT.
+%Accent conversion through cross-speaker articulatory synthesis
+\citep{artsynth1}.
+However, articulatory approaches are generally found to be inferior to acoustic-based approaches,
+which is due in part to the fact that acoustic methods provide a more fine-grained 
+representation with which to work.
+\citep{artsynth2}.
+%
+
+
+%synthesis-based methods
+Another class of accent conversion methods involves those in which speech synthesis 
+plays the primary role, typically by representing speech in a shared intermediate 
+representation and using a synthesizer trained on speech data of the target speaker 
+or accent. One of these, \cite{facviappg}, will be discussed below in greater detail.
+
+
+
+%Parrotron: An end-to-end speech-to-speech conversion model and its applications to hearing-impaired speech and speech separation
+Another synthesis-based accent conversion model is Parrotron, which makes heavy use 
+of both ASR and TTS models. 
+Designed to make human communication as well as the use of ASR systems easier for individuals with speech impairments
+or strong accents, Parrotron uses transfer learning to adapt a pretrained , already 
+robust ASR model to a particular speaker, learning the patterns of errors occurring in 
+the individual's speech. This model is then able to transcribe the speech with reasonable accuracy,
+which is then synthesized using a pretrained speech synthesis model. While this does 
+not preserve voice quality, it does solve the problem of low intelligibility
+\cite{parrotron}.
+
+
+
+%voice conversion
+Voice conversion is task that is in some ways closely related to accent conversion.
+In a sense, it may be thought of as a reverse, in that accent conversion generates 
+an utterance with the same voice as and a different accent than the source utterance.
+In contrast to this, voice conversion generates an utterance with the same accent 
+and different voice. Voice conversion is traditionally nearly always performed on 
+mel spectrograms, although some progress has been made on waveform-to-waveform 
+conversion.
+
+
+
+
+
+
+
+
+
+%English Language Accent Classification and Conversion using Machine Learning
+%\cite{parikh2020english}
+
+%A new approach to accent recognition and conversion for mandarin chinese
+%\cite{ai2020new}
+
+%Accent neutralization for speech recognition of non-native speakers
+%\cite{radzikowski2019accent}
+
+%Accent modification for speech recognition of non-native speakers using neural style transfer
+%\cite{radzikowski2021accent}
+
+%Hidden Markov Models for Artificial Voice Production and Accent Modification
+%\cite{coto2016hidden}
+
+%Foreign Accent Conversion by Synthesizing Speech from Phonetic Posteriorgrams
+%\cite{facviappg}
+
+
+%Improving accent conversion with reference encoder and end-to-end text-to-speech
+%\cite{acreference}
+
+%SautiLearn: improving online learning experience with accent translation
+%\cite{sautilearn}
+
+%TTS skins: Speaker conversion via ASR
+%\cite{ttsskins}
+
